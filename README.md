@@ -60,6 +60,11 @@ http://localhost:5173
 - [Vite](https://vitejs.dev/)
 - [Node.js](https://nodejs.org/en)
   
+![React](https://img.shields.io/badge/react-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![Node.js](https://img.shields.io/badge/node.js-393?style=for-the-badge&logo=node.js&logoColor=white)
+
+  
 ## Histórias
 
 <details>
