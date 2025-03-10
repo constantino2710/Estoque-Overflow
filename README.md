@@ -52,13 +52,10 @@ http://localhost:5173
 - João Victor Rocha Fernandes (850069)
 - João Constantino Pontes Barreto (849518)
 - Pedro Henrique Afonso dos Santos (849096)
-- Pedro Marques ()
-- Julia Vilar ()
+- Pedro Marques Bezerra dos Santos (849416)
+- Júlia Saldanha Vilar (848900)
 
 ## 🛠️ Tecnologias utilizadas
-- [React](https://react.dev/)
-- [Vite](https://vitejs.dev/)
-- [Node.js](https://nodejs.org/en)
   
 ![React](https://img.shields.io/badge/react-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E)
