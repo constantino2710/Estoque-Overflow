@@ -251,4 +251,8 @@ estoque.
 ## 📜 Licença
 Este projeto está licenciado sob a [MIT License](LICENSE).
 
+<<<<<<< HEAD
 ---
+=======
+---
+>>>>>>> ce5653bc24fcbe6108da8073c007eaf913b7af58
