@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 //importa as funcoes do database.js
-import {} from './database.js'
+import * as bd from '../Model/database.js';
 
 const app = express();
 const corsOptions = {
@@ -16,8 +16,9 @@ app.use((err, req, res, next) => {
 
 app.use(cors(corsOptions));
 
-app.get("/api", (req, res) => {
-    res.json({fruits: ["apple", "orange", "banana"]})
+app.get("/produto", async (req, res) => {
+    const produto = await bd.getProduto()
+    res.send(produto)
 });
 
 //http:://localhost:PORT

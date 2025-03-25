@@ -8,7 +8,7 @@ const pool = mysql.createPool({
 
 }).promise()
 
-async function getProduto(id_produto){
+export async function getProduto(id_produto){
     const [rows] = await pool.query(`
         SELECT nome, quantidade_disponivel, quantidade_pack, ultima_atualizacao
         FROM Produto
@@ -17,7 +17,7 @@ async function getProduto(id_produto){
     return rows
 }
 
-async function getTotalProduto(id_produto){
+export async function getTotalProduto(id_produto){
     const [rows] = await pool.query(`
         SELECT quantidade_disponivel
         FROM Produto
@@ -26,7 +26,7 @@ async function getTotalProduto(id_produto){
     return rows
 }
 
-async function getPermissaoVisualizar(id_usuario){
+export async function getPermissaoVisualizar(id_usuario){
     const [rows] = await pool.query(`
         SELECT permissao_estoque_visualizar
         FROM Permissao
@@ -35,7 +35,7 @@ async function getPermissaoVisualizar(id_usuario){
     return rows
 }
 
-async function getPermissaoEditar(id_usuario){
+export async function getPermissaoEditar(id_usuario){
     const [rows] = await pool.query(`
         SELECT permissao_estoque_editar
         FROM Permissao
@@ -44,7 +44,7 @@ async function getPermissaoEditar(id_usuario){
     return rows
 }
 
-async function getMovimentacao(id) {
+export async function getMovimentacao(id) {
     const [rows] = await pool.query(`
         SELECT *
         FROM Movimentacao
@@ -53,7 +53,7 @@ async function getMovimentacao(id) {
     return rows
 }
 
-async function getHistorico_Alteracoes_Usuario(id) {
+export async function getHistorico_Alteracoes_Usuario(id) {
     const [rows] = await pool.query(`
         SELECT *
         FROM Historico_Alteracoes_Usuario
@@ -62,7 +62,7 @@ async function getHistorico_Alteracoes_Usuario(id) {
     return rows
 }
 
-async function insertUsuario(nome, email){
+export async function insertUsuario(nome, email){
     const result = await pool.query(`
         INSERT INTO Usuario (nome, email, status)
         VALUES (?, ?, ativo)
