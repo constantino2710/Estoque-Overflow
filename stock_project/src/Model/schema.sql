@@ -63,3 +63,25 @@ CREATE TABLE Historico_Produto (
     FOREIGN KEY (id_produto) REFERENCES Produto(id_produto),
     FOREIGN KEY (alterado_por) REFERENCES Usuario(id_usuario)
 );
+
+-- criacao de roles
+CREATE ROLE admin;
+CREATE ROLE usuario;
+
+-- Garantindo privilegios
+GRANT ALL PRIVILEGES ON *.* TO admin WITH GRANT OPTION;
+
+-- Atribuindo funcoes ao usuario
+GRANT SELECT, UPDATE (quantidade_disponivel) ON Produto TO usuario;
+GRANT INSERT ON Movimentacao TO usuario;
+
+-- Criando usuarios (a ser modificado)
+CREATE USER 'admin_user'@'localhost' IDENTIFIED BY 'senha_segura';
+CREATE USER 'comum_user'@'localhost' IDENTIFIED BY 'senha_segura';
+
+GRANT admin TO 'admin_user'@'localhost';
+GRANT usuario TO 'comum_user'@'localhost';
+
+SET DEFAULT ROLE admin FOR 'admin_user'@'localhost';
+SET DEFAULT ROLE usuario FOR 'comum_user'@'localhost';
+
