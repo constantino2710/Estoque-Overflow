@@ -1,12 +1,10 @@
-import Sidebar from "./components/sidebar/sidebar"
-import './App.css'
+import { BrowserRouter as Router } from "react-router-dom";
+import {MainLayout} from "@/components/layout";
 
-function App() {
+export function App() {
   return (
-    <>
-      <Sidebar />
-    </>
-  )
+    <Router>
+      <MainLayout />
+    </Router>
+  );
 }
-
-export default App
