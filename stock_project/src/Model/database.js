@@ -1,13 +1,32 @@
 import mysql from 'mysql2';
 
-const pool = mysql.createPool({
+// Configuração para ADMIN
+const poolAdmin = mysql.createPool({
     host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
+    user: process.env.MYSQL_ADMIN_USER,  // admin_user
+    password: process.env.MYSQL_ADMIN_PASSWORD,
     database: process.env.MYSQL_DATABASE,
 }).promise();
 
+// Configuração para USUÁRIO COMUM
+const poolUser = mysql.createPool({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,  // comum_user
+    password: process.env.MYSQL_USER_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+}).promise();
+
+
 // Funções para Produto
+
+export async function insertProduto(nome, quantidade, tipo) {
+    const [result] = await poolAdmin.query(
+        `INSERT INTO Produto (nome, quantidade_disponivel, tipo) VALUES (?, ?, ?)`,
+        [nome, quantidade, tipo]
+    );
+    return result;
+}
+
 export async function getProduto(id_produto) {
     const [rows] = await pool.query(
         `SELECT nome, quantidade_disponivel, quantidade_pack, ultima_atualizacao FROM Produto WHERE id_produto = ?`,
@@ -25,7 +44,7 @@ export async function updateProdutoQuantidade(id_produto, nova_quantidade) {
 }
 
 export async function deleteProduto(id_produto) {
-    const [result] = await pool.query(`DELETE FROM Produto WHERE id_produto = ?`, [id_produto]);
+    const [result] = await poolAdmin.query(`DELETE FROM Produto WHERE id_produto = ?`, [id_produto]);
     return result;
 }
 
@@ -141,5 +160,3 @@ export async function getHistoricoAlteracoesUsuario(id_usuario) {
     const [rows] = await pool.query(`SELECT * FROM Historico_Alteracoes_Usuario WHERE id_usuario = ?`, [id_usuario]);
     return rows;
 }
-
-
