@@ -5,31 +5,31 @@ export function Sidebar() {
   const { pathname } = useLocation();
 
   return (
-    <div className='w-[19.375rem] h-screen bg-[var(--green-300)] text-white flex flex-col'>
-      <nav className='flex flex-col items-center pt-[2.1875rem] gap-4'>
+    <div className='w-[15rem] h-screen bg-[var(--green-300)] text-white flex flex-col'>
+      <nav className='flex flex-col items-center pt-[1.5rem] gap-2'>
         <button
-          className={`${pathname === "/" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[17.5rem] rounded-lg h-[5.625rem]`}
+          className={`${pathname === "/" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem]`}
           onClick={() => navigate("/")}
         >
           Adicionar
         </button>
 
         <button
-          className={`${pathname === "/search" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[17.5rem] rounded-lg h-[5.625rem]`}
+          className={`${pathname === "/search" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem]`}
           onClick={() => navigate("/search")}
         >
           Pesquisar
         </button>
 
         <button
-          className={`${pathname === "/remove" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[17.5rem] rounded-lg h-[5.625rem]`}
+          className={`${pathname === "/remove" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem]`}
           onClick={() => navigate("/remove")}
         >
           Remover
         </button>
 
         <button
-          className={`${pathname === "/stock" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[17.5rem] rounded-lg h-[5.625rem]`}
+          className={`${pathname === "/stock" ? "bg-[var(--button-active)]" : "bg-[var(--button-100)]"} text-black cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem]`}
           onClick={() => navigate("/stock")}
         >
           Estoque

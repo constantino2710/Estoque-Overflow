@@ -7,7 +7,7 @@ import {Stock} from "@/pages/stock";
 
 export function MainLayout() {
   return (
-    <div className='grid grid-cols-[277px_1fr] gap-8 items-start'>
+    <div className='grid grid-cols-[208px_1fr] gap-8 items-start'>
       <Sidebar />
       <div >
         <Routes>
