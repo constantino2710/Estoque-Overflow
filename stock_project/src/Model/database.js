@@ -6,6 +6,7 @@ const poolAdmin = mysql.createPool({
     user: process.env.MYSQL_ADMIN_USER,  // admin_user
     password: process.env.MYSQL_ADMIN_PASSWORD,
     database: process.env.MYSQL_DATABASE,
+    decimalNumbers: true
 }).promise();
 
 // Configuração para USUÁRIO COMUM
@@ -14,10 +15,9 @@ const poolUser = mysql.createPool({
     user: process.env.MYSQL_USER,  // comum_user
     password: process.env.MYSQL_USER_PASSWORD,
     database: process.env.MYSQL_DATABASE,
+    decimalNumbers: true
 }).promise();
 
-
-//cria conexao com usuario atual
 function getConnectionByUserType(userType){
     if(userType == 'admin'){
         return poolAdmin;
@@ -27,7 +27,6 @@ function getConnectionByUserType(userType){
         throw new Error("Tipo de usuario inválido");
     }
 }
-
 // Funções para Produto
 
 export async function insertProduto(nome, quantidade, tipo) {
@@ -39,7 +38,7 @@ export async function insertProduto(nome, quantidade, tipo) {
 }
 
 export async function getProduto(id_produto) {
-    const [rows] = await pool.query(
+    const [rows] = await poolUser.query(
         `SELECT nome, quantidade_disponivel, quantidade_pack, ultima_atualizacao FROM Produto WHERE id_produto = ?`,
         [id_produto]
     );
@@ -47,7 +46,7 @@ export async function getProduto(id_produto) {
 }
 
 export async function updateProdutoQuantidade(id_produto, nova_quantidade) {
-    const [result] = await pool.query(
+    const [result] = await poolAdmin.query(
         `UPDATE Produto SET quantidade_disponivel = ?, ultima_atualizacao = CURRENT_TIMESTAMP WHERE id_produto = ?`,
         [nova_quantidade, id_produto]
     );
@@ -55,13 +54,32 @@ export async function updateProdutoQuantidade(id_produto, nova_quantidade) {
 }
 
 export async function deleteProduto(id_produto) {
-    const [result] = await poolAdmin.query(`DELETE FROM Produto WHERE id_produto = ?`, [id_produto]);
-    return result;
+    const connection = await poolAdmin.getConnection();
+    try {
+        await connection.beginTransaction();
+
+        // Remover referências no histórico de produtos
+        await connection.query(`DELETE FROM Historico_Produto WHERE id_produto = ?`, [id_produto]);
+
+        // Remover movimentações associadas ao produto
+        await connection.query(`DELETE FROM Movimentacao WHERE id_produto = ?`, [id_produto]);
+
+        // Remover o produto
+        const [result] = await connection.query(`DELETE FROM Produto WHERE id_produto = ?`, [id_produto]);
+
+        await connection.commit();
+        return { success: true, affectedRows: result.affectedRows };
+    } catch (error) {
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
+    }
 }
 
 // Funções para Usuário
 export async function insertUsuario(nome, email, tipo_permissao) {
-    const [result] = await pool.query(
+    const [result] = await poolAdmin.query(
         `INSERT INTO Usuario (nome, email, tipo_permissao, status) VALUES (?, ?, ?, 'ativo')`,
         [nome, email, tipo_permissao]
     );
@@ -69,7 +87,7 @@ export async function insertUsuario(nome, email, tipo_permissao) {
 }
 
 export async function updateUsuarioStatus(id_usuario, novo_status) {
-    const [result] = await pool.query(
+    const [result] = await poolAdmin.query(
         `UPDATE Usuario SET status = ? WHERE id_usuario = ?`,
         [novo_status, id_usuario]
     );
@@ -77,13 +95,36 @@ export async function updateUsuarioStatus(id_usuario, novo_status) {
 }
 
 export async function deleteUsuario(id_usuario) {
-    const [result] = await pool.query(`DELETE FROM Usuario WHERE id_usuario = ?`, [id_usuario]);
-    return result;
+    const connection = await poolAdmin.getConnection();
+    try {
+        await connection.beginTransaction();
+
+        // Remover permissões do usuário
+        await connection.query(`DELETE FROM Permissao WHERE id_usuario = ?`, [id_usuario]);
+
+        // Remover histórico de alterações feitas pelo usuário
+        await connection.query(`DELETE FROM Historico_Alteracoes_Usuario WHERE id_usuario = ? OR alterado_por = ?`, [id_usuario, id_usuario]);
+        await connection.query(`DELETE FROM Historico_Produto WHERE alterado_por = ?`, [id_usuario]);
+
+        // Remover movimentações feitas pelo usuário
+        await connection.query(`DELETE FROM Movimentacao WHERE id_usuario = ?`, [id_usuario]);
+
+        // Remover o usuário
+        const [result] = await connection.query(`DELETE FROM Usuario WHERE id_usuario = ?`, [id_usuario]);
+
+        await connection.commit();
+        return { success: true, affectedRows: result.affectedRows };
+    } catch (error) {
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
+    }
 }
 
 // Funções para Permissão
 export async function getPermissaoVisualizar(id_usuario) {
-    const [rows] = await pool.query(
+    const [rows] = await poolUser.query(
         `SELECT permissao_estoque_visualizar FROM Permissao WHERE id_usuario = ?`,
         [id_usuario]
     );
@@ -91,7 +132,7 @@ export async function getPermissaoVisualizar(id_usuario) {
 }
 
 export async function getPermissaoEditar(id_usuario) {
-    const [rows] = await pool.query(
+    const [rows] = await poolUser.query(
         `SELECT permissao_estoque_editar FROM Permissao WHERE id_usuario = ?`,
         [id_usuario]
     );
@@ -99,7 +140,7 @@ export async function getPermissaoEditar(id_usuario) {
 }
 
 export async function updatePermissao(id_usuario, visualizar, editar) {
-    const [result] = await pool.query(
+    const [result] = await poolAdmin.query(
         `UPDATE Permissao SET permissao_estoque_visualizar = ?, permissao_estoque_editar = ? WHERE id_usuario = ?`,
         [visualizar, editar, id_usuario]
     );
@@ -108,7 +149,7 @@ export async function updatePermissao(id_usuario, visualizar, editar) {
 
 // Funções para Movimentação
 export async function insertMovimentacao(id_produto, id_usuario, quantidade_movimentada, tipo_movimentacao, comentarios) {
-    const connection = await pool.getConnection();
+    const connection = await poolAdmin.getConnection();
     try {
         await connection.beginTransaction();
 
@@ -162,12 +203,12 @@ export async function insertMovimentacao(id_produto, id_usuario, quantidade_movi
 }
 
 export async function getMovimentacao(id_produto) {
-    const [rows] = await pool.query(`SELECT * FROM Movimentacao WHERE id_produto = ?`, [id_produto]);
+    const [rows] = await poolUser.query(`SELECT * FROM Movimentacao WHERE id_produto = ?`, [id_produto]);
     return rows;
 }
 
 // Funções para Histórico
 export async function getHistoricoAlteracoesUsuario(id_usuario) {
-    const [rows] = await pool.query(`SELECT * FROM Historico_Alteracoes_Usuario WHERE id_usuario = ?`, [id_usuario]);
+    const [rows] = await poolAdmin.query(`SELECT * FROM Historico_Alteracoes_Usuario WHERE id_usuario = ?`, [id_usuario]);
     return rows;
 }
