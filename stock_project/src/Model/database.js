@@ -17,6 +17,17 @@ const poolUser = mysql.createPool({
 }).promise();
 
 
+//cria conexao com usuario atual
+function getConnectionByUserType(userType){
+    if(userType == 'admin'){
+        return poolAdmin;
+    } else if(userType == 'comum'){
+        return poolUser;
+    }else{
+        throw new Error("Tipo de usuario inválido");
+    }
+}
+
 // Funções para Produto
 
 export async function insertProduto(nome, quantidade, tipo) {

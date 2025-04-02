@@ -1,3 +1,5 @@
+USE  Banco;
+
 -- Tabela: Produto
 CREATE TABLE Produto (
     id_produto SERIAL PRIMARY KEY,
@@ -85,3 +87,4 @@ GRANT usuario TO 'comum_user'@'localhost';
 SET DEFAULT ROLE admin FOR 'admin_user'@'localhost';
 SET DEFAULT ROLE usuario FOR 'comum_user'@'localhost';
 
+CREATE TABLE Produto (     id_produto SERIAL PRIMARY KEY,     nome VARCHAR(100) NOT NULL,     quantidade_disponivel INTEGER NOT NULL DEFAULT 0,     quantidade_pack INTEGER NOT NULL DEFAULT 24,     ultima_atualizacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,     limite_minimo INTEGER NOT NULL DEFAULT 0,     tipo VARCHAR(20) CHECK (tipo IN ('OPME', 'pack')) NOT NULL )

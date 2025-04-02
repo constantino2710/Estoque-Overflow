@@ -2,9 +2,41 @@ import { useState } from "react";
 
 export function Add() {
   const [value, setValue] = useState<number | ''>('');
+  const [descricao, setDescricao] = useState("");
+  const [tipo, setTipo] = useState("OPME");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try{
+      const response = await fetch("http://localhost:8080/add", {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: descricao,
+          quantidade: value,
+          tipo: tipo,
+        }),
+      });
+
+      if(response.ok){
+        alert("Produto adicionado com sucesso!");
+        setDescricao("");
+        setValue("");
+        setTipo("OPME");
+      } else {
+        alert("Erro ao adicionar produto");
+      }
+    } catch(error){
+      console.error("Erro :", error);
+    }
+  };
+
 
   return (
-    <div className="flex flex-col items-center h-screen">
+    <form onSubmit={handleSubmit} className="flex flex-col items-center h-screen">
       <div className=" w-[48.75rem] h-[20.75rem] p-6 flex flex-col gap-6 mt-[9rem]">
         
         {/* Linha: Nome do produto */}
@@ -13,6 +45,8 @@ export function Add() {
           <textarea
             id="descricao"
             rows={1}
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
             className="border rounded px-3 py-2 resize-none w-full"
             placeholder="Digite o nome do produto"
           />
@@ -32,6 +66,8 @@ export function Add() {
           />
         </div>
 
+        {/*TODO: adicionar o campo de selecionar tipo pfvr */}
+
         {/* Botão */}
         <div className="flex justify-end mt-auto">
           <button
@@ -42,6 +78,6 @@ export function Add() {
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

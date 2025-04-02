@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node src/server",
-    "joao": "nodemon src/server"
+    "start": "node src/Control/server",
+    "joao": "nodemon src/Control/server"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
