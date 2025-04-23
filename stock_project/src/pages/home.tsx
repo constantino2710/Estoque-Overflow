@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Parse from "@/api/index"; // ajuste conforme o path do seu Parse.initialize
+import { createProduct } from "@/services/productService";
 
 export function HomePage() {
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ export function HomePage() {
     }
 
     try {
-      await Parse.Cloud.run("createProduct", { name, quantity });
+      await createProduct({ name, quantity });
 
       alert("Produto adicionado com sucesso!");
       setName("");
@@ -27,7 +27,6 @@ export function HomePage() {
     <div className="flex flex-col items-center h-screen">
       <div className="w-[40rem] p-4.8 flex flex-col gap-4.8 mt-[7.2rem]">
 
-        {/* Nome */}
         <div className="flex items-center w-full gap-2">
           <label htmlFor="name" className="whitespace-nowrap">Nome do produto:</label>
           <input
@@ -40,7 +39,6 @@ export function HomePage() {
           />
         </div>
 
-        {/* Quantidade */}
         <div className="flex items-center gap-2">
           <label htmlFor="quantity" className="whitespace-nowrap">Quantidade:</label>
           <input
@@ -53,7 +51,6 @@ export function HomePage() {
           />
         </div>
 
-        {/* Botão */}
         <div className="flex justify-end mt-auto">
           <button
             onClick={handleSubmit}

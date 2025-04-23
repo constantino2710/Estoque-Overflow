@@ -1,10 +1,37 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import {MainLayout} from "@/components/layout";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/auth/AuthContext";
+import { PrivateRoute } from "@/routes/privateRoute";
+import { LoginPage } from "@/pages/login";
+import { HomePage } from "@/pages/home";
+import { StockPage } from "@/pages/stock";
+import { AnalyticsPage } from "@/pages/analytics";
+import { MainLayout } from "@/components/layout";
 
-export function App() {
+function App() {
   return (
-    <Router>
-      <MainLayout />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Rota pública (sem layout) */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* Rotas protegidas com layout */}
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <MainLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route index element={<HomePage />} />
+            <Route path="stock" element={<StockPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
+
+export default App;
