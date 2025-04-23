@@ -37,7 +37,7 @@ const dadosMock = [
   ];
   
 
-export function Stock() {
+export function StockPage() {
   return (
 	<div className='flex flex-col items-center h-screen'>
 		<div>

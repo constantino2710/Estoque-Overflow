@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Parse from "@/api/index"; // ajuste conforme o path do seu Parse.initialize
 
-export function Add() {
+export function HomePage() {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState<number>(0);
 
@@ -57,7 +57,7 @@ export function Add() {
         <div className="flex justify-end mt-auto">
           <button
             onClick={handleSubmit}
-            className="cursor-pointer bg-green-500 hover:bg-green-600 transition-colors w-[11.2rem] h-[3.2rem] rounded-lg text-white"
+            className="cursor-pointer bg-[var(--green-400)] hover:bg-[var(--green-500)] transition-colors w-[11.2rem] h-[3.2rem] rounded-lg text-white"
           >
             Adicionar
           </button>

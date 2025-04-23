@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { Sidebar } from "@/components/sidebar";
-import {Add} from "@/pages/add";
-import {Remove} from "@/pages/remove";
-import {Search} from "@/pages/search";
-import {Stock} from "@/pages/stock";
+import {HomePage} from "@/pages/home";
+import {AnalyticsPage} from "@/pages/analytics";
+import {StockPage} from "@/pages/stock";
 
 export function MainLayout() {
   return (
@@ -11,10 +10,9 @@ export function MainLayout() {
       <Sidebar />
       <div >
         <Routes>
-          	<Route path="/" element={<Add />} />
-			      <Route path="/remove" element={<Remove />} />
-          	<Route path="/search" element={<Search />} />
-          	<Route path="/stock" element={<Stock />} />
+          	<Route path="/" element={<HomePage />} />
+			      <Route path="/AnalyticsPage" element={<AnalyticsPage />} />
+          	<Route path="/StockPage" element={<StockPage />} />
         </Routes>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Remove() {
+export function AnalyticsPage() {
   const [value, setValue] = useState<number | ''>('');
 
   return (

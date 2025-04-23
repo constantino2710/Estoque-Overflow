@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root{
+:root {
 
   --button-100: rgba(242, 240, 240, 0.75);
   --button-active: rgba(192, 192, 192, 0.75);
@@ -13,22 +13,32 @@
   --green-200: #57B1A4;
   --green-300: #399A8B;
   --green-400: #137E6E;
-
+  --green-500: #0E6B5D;
+  --green-600: #0A584C;
+  --green-700: #07453B;
+  --green-800: #05322A;
+  --green-900: #021F19;
 
   --text: #353535;
+  --text2: #181818; 
 
   --red-600: #ab222e;
 }
 
+span{
+  color: var(--green-500);
+  font-size: 1.2rem;
+}
+
 
 body{
-  background-color: #f4f4f4;
-  color: #353535;
+  background-color: var(--backgroud);
+  color: var(--gray-800);
   -webkit-font-smoothing: antialiased;
 }
 
 body, input, textarea, button{
-  font: 400 16px 'Inter', sans-serif;
+  font: 400 16px 'roboto', sans-serif;
   font-weight: 400;
   font-size: 2rem;
 }
