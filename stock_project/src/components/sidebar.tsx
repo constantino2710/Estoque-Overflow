@@ -1,15 +1,19 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { LogoutButton } from "./logoutButton";
+import  logo  from '@/assets/image.png';
 
 export function Sidebar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return (
-    <div className='w-[15rem] h-screen bg-[var(--green-300)] text-white flex flex-col justify-between'>
-      <nav className='flex flex-col items-center pt-[1.5rem] gap-2'>
+    <div className='w-[15rem] h-screen bg-[var(--gray-600)] text-white flex flex-col justify-between flex-start'>
+      <nav className='flex flex-col items-center gap-4 pt-[1rem]'>
+        <img src={logo} alt="" className='h-[4rem] object-contain'/>
+
+        <div className='pt-4 flex flex-col gap-2'>
         <button
-          className={`${pathname === "/" ? "text-[var(--text2)]" : "text-[var(--gray-500)]"} cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem] flex items-center gap-2`}
+          className={`${pathname === "/" ? "text-[var(--green-300)]" : "text-[var(--gray-300)]"} cursor-pointer text-base w-[13rem] rounded-lg h-[2rem] flex items-center gap-2`}
           onClick={() => navigate("/")} 
         >
           <svg
@@ -31,7 +35,7 @@ export function Sidebar() {
         </button> 
         
         <button
-          className={`${pathname === "/stock" ? "text-[var(--text2)]" : "text-[var(--gray-500)]"} cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem] flex items-center gap-2`}
+          className={`${pathname === "/stock" ? "text-[var(--green-300)]" : "text-[var(--gray-300)]"} cursor-pointer text-base w-[13rem] rounded-lg h-[2rem] flex items-center gap-2`}
           onClick={() => navigate("/stock")} 
         >
           <svg
@@ -54,7 +58,7 @@ export function Sidebar() {
         </button>       
         
         <button
-          className={`${pathname === "/analytics" ? "text-[var(--text2)]" : "text-[var(--gray-500)]"} cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem] flex items-center gap-2`}
+          className={`${pathname === "/analytics" ? "text-[var(--green-300)]" : "text-[var(--gray-300)]"} cursor-pointer text-base w-[13rem] rounded-lg h-[2rem] flex items-center gap-2`}
           onClick={() => navigate("/analytics")} 
         >
           <svg
@@ -78,6 +82,7 @@ export function Sidebar() {
           </svg>
           Analytics
         </button> 
+        </div>
 
       </nav>
       <div className='pb-4'>

@@ -24,7 +24,7 @@ export function HomePage() {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen">
+    <div className="flex flex-col items-center">
       <div className="w-[40rem] p-4.8 flex flex-col gap-4.8 mt-[7.2rem]">
 
         <div className="flex items-center w-full gap-2">

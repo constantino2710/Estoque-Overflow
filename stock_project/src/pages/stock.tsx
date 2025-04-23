@@ -1,5 +1,5 @@
 import { ProductTable } from "@/components/producttable"
-import { IfAdmin } from "@/components/ifAdmin";
+import { IfAdmin } from "@/auth/ifAdmin";
 
 
 const dadosMock = [
