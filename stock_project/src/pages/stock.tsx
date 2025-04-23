@@ -1,4 +1,5 @@
 import { ProductTable } from "@/components/producttable"
+import { IfAdmin } from "@/components/ifAdmin";
 
 
 const dadosMock = [
@@ -43,6 +44,9 @@ export function StockPage() {
 		<div>
 			<ProductTable dados={dadosMock}/>
 		</div>	
+		<IfAdmin>
+			<button>teste</button>
+		</IfAdmin>
 	</div>
   )
 }

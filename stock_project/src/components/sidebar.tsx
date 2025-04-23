@@ -1,11 +1,12 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { LogoutButton } from "./logoutButton";
 
 export function Sidebar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return (
-    <div className='w-[15rem] h-screen bg-[var(--green-300)] text-white flex flex-col'>
+    <div className='w-[15rem] h-screen bg-[var(--green-300)] text-white flex flex-col justify-between'>
       <nav className='flex flex-col items-center pt-[1.5rem] gap-2'>
         <button
           className={`${pathname === "/" ? "text-[var(--text2)]" : "text-[var(--gray-500)]"} cursor-pointer text-base w-[13rem] rounded-lg h-[3.5rem] flex items-center gap-2`}
@@ -77,7 +78,11 @@ export function Sidebar() {
           </svg>
           Analytics
         </button> 
+
       </nav>
+      <div className='pb-4'>
+        <LogoutButton/>
+      </div>
     </div>
   );
 }
