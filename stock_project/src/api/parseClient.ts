@@ -1,7 +1,7 @@
 import Parse from 'parse/dist/parse.min.js';
 
-const appId = '9yO8szbeCy8P0ZiBPWh5zwMwEucXO2oVRmPGYIRf';
-const jsKey = 'fEuqZaA9Zbjl1j9lgSmrLslMyRIV29d4mPpujinE';
+const appId = '1vPXALjSWocFRxuY1v8zV9qR1Q56NIi0a4mv0E9T';
+const jsKey = '0KzcrXvlL9hIQhJQ0dVcPV0lcsAuhglrTesG3lxL';
 const serverURL = 'https://parseapi.back4app.com/';
 
 Parse.initialize(appId, jsKey);

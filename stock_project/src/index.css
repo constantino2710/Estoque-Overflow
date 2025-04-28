@@ -33,6 +33,8 @@
   --text2: #181818; 
 
   --red-600: #ab222e;
+
+  --bgmodal:rgba(0, 0, 0, 0.8);
 }
 
 span{
