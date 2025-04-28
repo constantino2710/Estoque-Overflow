@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Parse from "@/api/parseClient";
 import { useAuth } from "@/auth/useAuth";
+import logo from '@/assets/image.png'
 
 export function LoginPage() {
   const [username, setUsername] = useState("");
@@ -29,8 +30,10 @@ export function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded shadow-md w-[24rem]">
+    <div className="flex items-center justify-center h-screen">
+      <div className='flex flex-col items-center gap-4'>
+        <img src={logo} alt="Logo" className="w-full h-full object-cover" />
+      <div className="bg-[var(--gray-800)] p-6 rounded shadow-md w-[24rem]">
         <h2 className="text-xl font-semibold mb-4">Login</h2>
         <input
           type="text"
@@ -48,10 +51,11 @@ export function LoginPage() {
         />
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+          className="w-full bg-[var(--green-500)] text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
         >
           Entrar
         </button>
+      </div>
       </div>
     </div>
   );
