@@ -40,7 +40,7 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-[var(--bgModal)] flex items-center justify-center z-50"
       onClick={handleOverlayClick}
     >
       <div className="bg-[var(--gray-800)] rounded-xl p-8">
