@@ -22,7 +22,7 @@ export function LogoutButton() {
     
       onClick={handleLogout}
       
-      className=" px-4 py-2 text-[var(--red-600)] rounded transition cursor-pointer flex items-center justify-start gap-2 w-full"
+      className=" px-4 py-2 text-[var(--red)] rounded transition cursor-pointer flex items-center justify-start gap-2 w-full"
     >
             <svg
         xmlns="http://www.w3.org/2000/svg"
