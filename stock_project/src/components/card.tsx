@@ -3,7 +3,7 @@ interface CardProps {
 	content: string;
 	icon: React.ReactNode;
 	children?: React.ReactNode;
-	variant?: 'default' | 'alert';
+	variant?: 'default' | 'alert'| 'danger';
   }
   
   export const Card: React.FC<CardProps> = ({
@@ -14,9 +14,12 @@ interface CardProps {
 	variant = 'default',
   }) => {
 	const borderClasses =
-	  variant === 'alert'
-		? 'border-2 border-red-500'
-		: 'border border-[var(--gray-700)]';
+	variant === 'danger'
+	  ? 'border-2 border-red-500'
+	  : variant === 'alert'
+	  ? 'border-2 border-yellow-500'
+	  : 'border border-[var(--gray-700)]';
+  
   
 	return (
 	  <div className={`rounded-2xl shadow-md p-4 bg-[var(--gray-800)] h-[10rem] w-full ${borderClasses}`}>
@@ -24,8 +27,9 @@ interface CardProps {
 		  <h2 className="text-xl font-bold text-white">{title}</h2>
 		  <div>{icon}</div>
 		</div>
-  
-		<p className="text-sm text-gray-300 mt-2">{content}</p>
+		<div className='flex justify-center h-full mt-6'>
+		<p className="text-5xl">{content}</p>
+		</div>
 		{children}
 	  </div>
 	);

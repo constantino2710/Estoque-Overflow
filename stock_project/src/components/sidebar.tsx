@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getCurrentUsername } from "@/services/userService";
 import { LogoutButton } from "./logoutButton";
 import logo from '@/assets/image.png';
+import { IfAdmin } from "@/auth/ifAdmin";
 
 export function Sidebar() {
   const navigate = useNavigate();
@@ -105,6 +106,11 @@ export function Sidebar() {
         ) : (
           <p className="text-sm text-[var(--gray-400)] mt-2">Carregando...</p>
         )}
+        <div className='ml-4 text-sm'>
+        <IfAdmin>
+          Admin
+        </IfAdmin>
+        </div>
         <LogoutButton/>
       </div>
     </div>

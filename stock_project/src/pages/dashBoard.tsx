@@ -1,8 +1,11 @@
-import {Card} from '@/components/card'
-import { StockedItems } from './dashboardComponents/stockedItems';
-import { HistoryItems } from './dashboardComponents/historyItems';
-import { IfAdmin } from '@/auth/ifAdmin';
+"use client";
 
+import { useEffect, useState } from "react";
+import { Card } from "@/components/card";
+import { StockedItems } from "./dashboardComponents/stockedItems";
+import { HistoryItems } from "./dashboardComponents/historyItems";
+import { IfAdmin } from "@/auth/ifAdmin";
+import Parse from "@/api/parseClient";
 
 const MyIcon1 = (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-icon lucide-package">
@@ -38,40 +41,51 @@ const MyIcon4 = (
   </svg>
 );
 
-
 export function DashBoard() {
-
+  const [total, setTotal] = useState<number | null>(null);
+  useEffect(() => {
+    async function fetchTotal() {
+      try {
+        const result = await Parse.Cloud.run("getTotalQuantidade");
+        setTotal(result);
+      } catch (error) {
+        console.error("Erro ao buscar total:", error);
+      }
+    }
+  
+    fetchTotal();
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-full h-screen p-4">
-        <h1 className='text-5xl'>Dashboard</h1>
-      <div className='flex flex-row gap-4 justify-center items-center mt-4 w-full h-'>
+      <h1 className="text-5xl">Dashboard</h1>
+      <div className="flex flex-row gap-4 justify-center items-center mt-4 w-full h-[10rem]">
         <Card
-        title="Total de Produtos"
-        content="Esse card usa um ícone SVG inline."
-        icon={MyIcon1}
-    />
-        <Card
-        title="Retiradas (mês)"
-        content="Esse card usa um ícone SVG inline."
-        icon={MyIcon2}
+          title="Total de Produtos"
+          content={total !== null ? `${total} itens` : "Carregando..."}
+          icon={MyIcon1}
         />
         <Card
-        title="Devoluções (mês)"
-        content='Esse card usa um ícone SVG inline.'
-        icon={MyIcon3}
+          title="Retiradas (mês)"
+          content="o"
+          icon={MyIcon2}
         />
         <Card
-        title='Produtos em alerta'
-        content='Esse card usa um ícone SVG inline.'
-        icon={MyIcon4}
-        variant='alert'
+          title="Devoluções (mês)"
+          content="o"
+          icon={MyIcon3}
+        />
+        <Card
+          title="Produtos em alerta"
+          content="o"
+          icon={MyIcon4}
+          variant="danger"
         />
       </div>
-      <div className='flex flex-row gap-4 justify-center items-center mt-4 w-full h-full'>
-        <StockedItems/>
+      <div className="flex flex-row gap-4 justify-center items-center mt-4 w-full h-full">
+        <StockedItems />
         <IfAdmin>
-        <HistoryItems/>
+          <HistoryItems />
         </IfAdmin>
       </div>
     </div>

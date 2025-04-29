@@ -69,6 +69,19 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
           </div>
 
           <div className="flex items-center gap-2">
+            <label htmlFor="stockLimit" className="whitespace-nowrap text-white">
+              Limite de estoque:
+            </label>
+            <input
+              id="stockLimit"
+              type="number"
+              min={0}
+              value={stockLimit}
+              onChange={(e) => setStockLimit(Number(e.target.value))}
+              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
+            />
+          </div>
+          <div className="flex items-center gap-2">
             <label htmlFor="quantity" className="whitespace-nowrap text-white">
               Quantidade:
             </label>
@@ -82,19 +95,6 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
             />
           </div>
 
-          <div className="flex items-center gap-2">
-            <label htmlFor="stockLimit" className="whitespace-nowrap text-white">
-              Limite de estoque:
-            </label>
-            <input
-              id="stockLimit"
-              type="number"
-              min={0}
-              value={stockLimit}
-              onChange={(e) => setStockLimit(Number(e.target.value))}
-              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
-            />
-          </div>
 
           <div className="flex justify-end mt-auto gap-2">
             <button
