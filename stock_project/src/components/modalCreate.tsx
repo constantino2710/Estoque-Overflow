@@ -11,20 +11,27 @@ interface ModalProps {
 export function ModalCreate({ isOpen, onClose }: ModalProps) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const [stockLimit, setStockLimit] = useState(1000);
 
   if (!isOpen) return null;
 
   const handleSubmit = async () => {
-    if (!name.trim() || quantity <= 0) {
-      alert("Preencha todos os campos!");
+    if (!name.trim() || quantity <= 0 || stockLimit <= 0) {
+      alert("Preencha todos os campos corretamente!");
+      return;
+    }
+
+    if (quantity > stockLimit) {
+      alert("A quantidade não pode ser maior que o limite de estoque.");
       return;
     }
 
     try {
-      await createProduct({ name, quantity });
+      await createProduct({ name, quantity, stockLimit });
       alert("Produto adicionado com sucesso!");
       setName("");
       setQuantity(0);
+      setStockLimit(1000);
       onClose();
     } catch (error) {
       alert("Erro ao adicionar produto.");
@@ -48,7 +55,9 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
 
         <div className="w-[40rem] p-6 flex flex-col gap-6 mt-6">
           <div className="flex items-center w-full gap-2">
-            <label htmlFor="name" className="whitespace-nowrap text-white">Nome do produto:</label>
+            <label htmlFor="name" className="whitespace-nowrap text-white">
+              Nome do produto:
+            </label>
             <input
               id="name"
               type="text"
@@ -60,13 +69,29 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <label htmlFor="quantity" className="whitespace-nowrap text-white">Quantidade:</label>
+            <label htmlFor="quantity" className="whitespace-nowrap text-white">
+              Quantidade:
+            </label>
             <input
               id="quantity"
               type="number"
               min={0}
               value={quantity}
               onChange={(e) => setQuantity(Number(e.target.value))}
+              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <label htmlFor="stockLimit" className="whitespace-nowrap text-white">
+              Limite de estoque:
+            </label>
+            <input
+              id="stockLimit"
+              type="number"
+              min={0}
+              value={stockLimit}
+              onChange={(e) => setStockLimit(Number(e.target.value))}
               className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
             />
           </div>
