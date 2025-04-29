@@ -6,10 +6,10 @@ export function StockPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="flex flex-col h-full gap-4">
+    <div className="flex flex-col h-full gap-4 items-center">
       <h1 className="flex text-5xl">Estoque</h1>
 
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 w-full">
         <div className="relative flex w-full">
           <input
             type="text"
@@ -51,10 +51,28 @@ export function StockPage() {
 
         <IfAdmin>
           <button
-            className="bg-[var(--green-500)] rounded-xl h-[2.5rem] flex items-center justify-center px-4 whitespace-nowrap cursor-pointer"
+            className="bg-[var(--green-500)] rounded-xl h-[2.5rem] flex items-center justify-center px-4 whitespace-nowrap cursor-pointer transition-all duration-300 hover:bg-[var(--butonHover)] hover:-translate-y-1 hover:shadow-xl"
             onClick={() => setIsModalOpen(true)}
           >
-            Adicionar Produto
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="lucide lucide-package-plus-icon lucide-package-plus"
+            >
+              <path d="M16 16h6" />
+              <path d="M19 13v6" />
+              <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
+              <path d="m7.5 4.27 9 5.15" />
+              <polyline points="3.29 7 12 12 20.71 7" />
+              <line x1="12" x2="12" y1="22" y2="12" />
+            </svg>
           </button>
         </IfAdmin>
       </div>

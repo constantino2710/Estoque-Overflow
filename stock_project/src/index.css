@@ -5,52 +5,57 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-
   --button-100: rgba(242, 240, 240, 0.75);
   --button-active: rgba(192, 192, 192, 0.75);
 
-  --green-100: #8DCEC3;
-  --green-200: #57B1A4;
-  --green-300: #399A8B;
-  --green-400: #137E6E;
-  --green-500: #0E6B5D;
-  --green-600: #0A584C;
-  --green-700: #07453B;
-  --green-800: #05322A;
-  --green-900: #021F19;
+  --green-100: #8dcec3;
+  --green-200: #57b1a4;
+  --green-300: #399a8b;
+  --green-400: #137e6e;
+  --green-500: #1f6f66; /*botão adicionar*/
+  --green-600: #0a584c;
+  --green-700: #07453b;
+  --green-800: #05322a;
+  --green-900: #021f19;
+
+  --butonHover: #299c91;
 
   --gray-100: #e1e1e6;
   --gray-200: #c4c4cc;
-  --gray-300: #c4c4cc;
+  --gray-300: #e0e0e0;
   --gray-400: #8d8d99;
   --gray-500: #7c7c8a;
   --gray-600: #323238;
   --gray-700: #29292e;
-  --gray-800: #202024;
-  --gray-900: #121214;
+  --gray-800: #2b2b2b; /*caixa secundária*/
+  --gray-900: #1a1a1a; /*background-color*/
 
-  --text: #353535;
-  --text2: #181818; 
+  --border: #3c3c3c;
+
+  --text: #a0a0a0;
+  --text2: #181818;
 
   --red-600: #ab222e;
 
-  --bgmodal:rgba(0, 0, 0, 0.8);
+  --bgmodal: rgba(0, 0, 0, 0.8);
 }
 
-span{
+span {
   color: var(--green-500);
   font-size: 1.2rem;
 }
 
-
-body{
+body {
   background-color: var(--gray-900);
   color: var(--gray-300);
   -webkit-font-smoothing: antialiased;
 }
 
-body, input, textarea, button{
-  font: 400 16px 'roboto', sans-serif;
+body,
+input,
+textarea,
+button {
+  font: 400 16px "roboto", sans-serif;
   font-weight: 400;
   font-size: 1.5rem;
 }
