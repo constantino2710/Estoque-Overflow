@@ -6,7 +6,7 @@ export function StockPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="flex flex-col h-full gap-4 items-center">
+    <div className="flex flex-col h-screen gap-4 items-center p-4">
       <h1 className="flex text-5xl">Estoque</h1>
 
       <div className="flex flex-row gap-2 w-full">
@@ -77,7 +77,9 @@ export function StockPage() {
         </IfAdmin>
       </div>
 
-      <div className="w-full h-[32rem] bg-[var(--gray-800)] flex flex-col items-center rounded-xl"></div>
+      <div className="w-full h-full bg-[var(--gray-800)] flex flex-col items-center rounded-xl">
+
+      </div>
 
       {/* Modal chamando o componente importado */}
       <ModalCreate isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
