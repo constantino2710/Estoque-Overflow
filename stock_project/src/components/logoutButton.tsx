@@ -2,15 +2,19 @@ import { useNavigate } from "react-router-dom";
 import Parse from "@/api/parseClient";
 import { useAuth } from "@/auth/useAuth";
 
-export function LogoutButton() {
+interface LogoutButtonProps {
+  isSidebarOpen: boolean;
+}
+
+export function LogoutButton({ isSidebarOpen }: LogoutButtonProps) {
   const { refreshUser } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await Parse.User.logOut();
-      refreshUser(); // limpa o usuário no contexto
-      navigate("/login"); // redireciona para o login
+      refreshUser();
+      navigate("/login");
     } catch (error: unknown) {
       console.error("Erro ao deslogar:", error);
       alert("Erro ao sair.");
@@ -19,14 +23,18 @@ export function LogoutButton() {
 
   return (
     <button
-    
       onClick={handleLogout}
-      
-      className=" px-4 py-2 text-[var(--red)] rounded transition cursor-pointer flex items-center justify-start gap-2 w-full"
+      className={`
+    w-full h-[2.5rem] px-2 rounded transition cursor-pointer
+    flex items-center ${
+      isSidebarOpen ? "justify-start gap-2" : "justify-center"
+    }
+    bg-transparent
+  `}
     >
-            <svg
+      <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6 stroke-current"
+        className="w-6 h-6 stroke-[var(--red)] flex-shrink-0"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={2}
@@ -38,7 +46,11 @@ export function LogoutButton() {
         <line x1="21" y1="12" x2="9" y2="12" />
       </svg>
 
-      Sair
+      {isSidebarOpen && (
+        <span className="text-[var(--red)] text-sm !text-[var(--red)]">
+          Sair
+        </span>
+      )}
     </button>
   );
 }
