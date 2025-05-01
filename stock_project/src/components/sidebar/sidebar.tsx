@@ -30,33 +30,26 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
     `${
       pathname === path ? "text-[var(--green-300)]" : "text-[var(--gray-300)]"
     } 
-      cursor-pointer text-base w-full rounded-lg h-[2.5rem] flex items-center gap-2 
-      ${isOpen ? "justify-start px-4" : "justify-center"} 
-      hover:bg-[var(--gray-500)] transition`;
+    cursor-pointer text-base w-full rounded-lg h-[2.5rem] flex items-center gap-2 
+    ${isOpen ? "justify-start px-4" : "justify-center"} 
+    hover:bg-[var(--gray-500)] transition`;
 
   return (
     <div
       className={`h-screen bg-[var(--gray-600)] text-white flex flex-col justify-between 
-        ${isOpen ? "w-[15rem]" : "w-[4.5rem]"} transition-all duration-300`}
+      ${isOpen ? "w-[15rem]" : "w-[4.5rem]"} transition-all duration-300`}
     >
-      {/* Topo com botão de toggle e logo */}
+      {/* Topo com logo */}
       <div>
-        <div
-          className={
-            'w-full flex ${isOpen ? "justify-end" : "justify-center"} p-2'
-          }
-        >
-          <SidebarToggle isOpen={isOpen} toggle={toggle} />
-        </div>
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center py-2">
           <img
             src={isOpen ? logo : logoSimbolo}
             alt="Logo"
-            className={'object-contain ${isOpen ? "h-[3rem]" : "h-[2.5rem]"}'}
+            className={`object-contain ${isOpen ? "h-[3rem]" : "h-[2.5rem]"}`}
           />
         </div>
 
-        {/* Navegação logo abaixo */}
+        {/* Navegação */}
         <div className="pt-4 flex flex-col gap-1">
           <button className={linkClass("/")} onClick={() => navigate("/")}>
             <LucideHome size={20} />
@@ -81,22 +74,36 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
         </div>
       </div>
 
-      {/* Rodapé com usuário e logout */}
+      {/* Rodapé com toggle, admin, user e logout */}
       <div className="pb-4 px-4">
+        {/* Botão de Toggle */}
+        <div
+          className={`w-full flex ${
+            isOpen ? "justify-end" : "justify-center"
+          } items-center mb-2`}
+        >
+          <SidebarToggle isOpen={isOpen} toggle={toggle} />
+        </div>
+
+        {/* Exibição de Admin */}
         {isOpen ? (
-          <>
-            <p className="text-[var(--gray-300)]">
-              {username || "Carregando..."}
-            </p>
-            <div className="text-sm">
-              <IfAdmin>Admin</IfAdmin>
-            </div>
-          </>
+          <div className="text-sm mb-1">
+            <IfAdmin>Admin</IfAdmin>
+          </div>
         ) : (
-          <div className="text-center text-sm">
+          <div className="text-center text-sm mb-1">
             <IfAdmin>Admin</IfAdmin>
           </div>
         )}
+
+        {/* Nome do usuário */}
+        {isOpen ? (
+          <p className="text-[var(--gray-300)] mb-2">
+            {username || "Carregando..."}
+          </p>
+        ) : null}
+
+        {/* Logout */}
         <LogoutButton isSidebarOpen={isOpen} />
       </div>
     </div>
