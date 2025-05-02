@@ -6,9 +6,10 @@ import { createProduct } from "@/services/productService";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess: () => void;
 }
 
-export function ModalCreate({ isOpen, onClose }: ModalProps) {
+export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [stockLimit, setStockLimit] = useState(1000);
@@ -32,6 +33,7 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
       setName("");
       setQuantity(0);
       setStockLimit(1000);
+      onSuccess(); // atualiza a tela
       onClose();
     } catch (error) {
       alert("Erro ao adicionar produto.");
@@ -81,6 +83,7 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
               className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
             />
           </div>
+
           <div className="flex items-center gap-2">
             <label htmlFor="quantity" className="whitespace-nowrap text-white">
               Quantidade:
@@ -94,7 +97,6 @@ export function ModalCreate({ isOpen, onClose }: ModalProps) {
               className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
             />
           </div>
-
 
           <div className="flex justify-end mt-auto gap-2">
             <button

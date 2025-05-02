@@ -42,7 +42,7 @@
 }
 
 span {
-  color: var(--green-500);
+  color: var(--green-300);
   font-size: 1.2rem;
 }
 
@@ -59,4 +59,14 @@ button {
   font: 400 16px "roboto", sans-serif;
   font-weight: 400;
   font-size: 1.5rem;
+}
+
+/* Esconde scrollbars em navegadores compatíveis */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari e Chrome */
 }

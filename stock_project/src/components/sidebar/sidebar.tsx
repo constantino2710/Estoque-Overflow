@@ -39,8 +39,14 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
       className={`h-screen bg-[var(--gray-600)] text-white flex flex-col justify-between 
       ${isOpen ? "w-[15rem]" : "w-[4.5rem]"} transition-all duration-300`}
     >
-      {/* Topo com logo */}
-      <div>
+      {/* Topo com toggle e logo */}
+      <div className="flex flex-col w-full">
+        {/* Toggle no topo */}
+        <div className={`w-full flex ${isOpen ? "justify-end pr-4" : "justify-center"} pt-4`}>
+          <SidebarToggle isOpen={isOpen} toggle={toggle} />
+        </div>
+
+        {/* Logo abaixo do toggle */}
         <div className="w-full flex justify-center py-2">
           <img
             src={isOpen ? logo : logoSimbolo}
@@ -56,35 +62,20 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
             {isOpen && "Dashboard"}
           </button>
 
-          <button
-            className={linkClass("/stock")}
-            onClick={() => navigate("/stock")}
-          >
+          <button className={linkClass("/stock")} onClick={() => navigate("/stock")}>
             <LucideLayers size={20} />
             {isOpen && "Estoque"}
           </button>
 
-          <button
-            className={linkClass("/analytics")}
-            onClick={() => navigate("/analytics")}
-          >
+          <button className={linkClass("/analytics")} onClick={() => navigate("/analytics")}>
             <LucideChartBar size={20} />
             {isOpen && "Análises"}
           </button>
         </div>
       </div>
 
-      {/* Rodapé com toggle, admin, user e logout */}
+      {/* Rodapé com admin, nome do usuário e logout */}
       <div className="pb-4 px-4">
-        {/* Botão de Toggle */}
-        <div
-          className={`w-full flex ${
-            isOpen ? "justify-end" : "justify-center"
-          } items-center mb-2`}
-        >
-          <SidebarToggle isOpen={isOpen} toggle={toggle} />
-        </div>
-
         {/* Exibição de Admin */}
         {isOpen ? (
           <div className="text-sm mb-1">

@@ -1,13 +1,19 @@
+"use client";
+
 import { useState } from "react";
 import { IfAdmin } from "@/auth/ifAdmin";
 import { ModalCreate } from "@/components/modalCreate";
+import { ProductList } from "./stock/productList";
 
 export function StockPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const handleReload = () => setReloadKey((prev) => prev + 1);
 
   return (
     <div className="flex flex-col h-screen gap-4 items-center p-4">
-      <h1 className="flex text-5xl">Estoque</h1>
+      <h1 className="text-5xl">Estoque</h1>
 
       <div className="flex flex-row gap-2 w-full">
         <div className="relative flex w-full">
@@ -17,6 +23,7 @@ export function StockPage() {
             className="w-full border resize-none rounded-xl h-[2.5rem] px-4 pr-14 bg-transparent text-white placeholder-gray-400 outline-none"
           />
           <div className="absolute inset-y-0 right-2 flex items-center gap-2">
+            {/* Filtro */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -31,6 +38,8 @@ export function StockPage() {
             >
               <path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" />
             </svg>
+
+            {/* Buscar */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -51,9 +60,10 @@ export function StockPage() {
 
         <IfAdmin>
           <button
-            className="bg-[var(--green-500)] rounded-xl h-[2.5rem] flex items-center justify-center px-4 whitespace-nowrap cursor-pointer transition-all duration-300 hover:bg-[var(--butonHover)] hover:-translate-y-1 hover:shadow-xl"
             onClick={() => setIsModalOpen(true)}
+            className="bg-[var(--green-500)] rounded-xl h-[2.5rem] flex items-center justify-center px-4 hover:bg-[var(--butonHover)] transition hover:-translate-y-1 hover:shadow-xl"
           >
+            {/* Adicionar produto */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -61,9 +71,9 @@ export function StockPage() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="lucide lucide-package-plus-icon lucide-package-plus"
             >
               <path d="M16 16h6" />
@@ -77,12 +87,15 @@ export function StockPage() {
         </IfAdmin>
       </div>
 
-      <div className="w-full h-full bg-[var(--gray-800)] flex flex-col items-center rounded-xl">
-
+      <div className="w-full h-full bg-[var(--gray-800)] flex flex-col items-center rounded-xl overflow-y-auto px-2 scrollbar-hide">
+        <ProductList reloadKey={reloadKey} />
       </div>
 
-      {/* Modal chamando o componente importado */}
-      <ModalCreate isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ModalCreate
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleReload}
+      />
     </div>
   );
 }
