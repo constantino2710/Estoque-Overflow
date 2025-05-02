@@ -35,7 +35,8 @@
   --text: #a0a0a0;
   --text2: #181818;
 
-  --red: #B33C3C;
+  --red: #cb1515;
+  --red-100: #B33C3C; 
   --alert: #D97706;
 
   --bgModal: rgba(0, 0, 0, 0.8);

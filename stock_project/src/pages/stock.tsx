@@ -61,7 +61,7 @@ export function StockPage() {
         <IfAdmin>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-[var(--green-500)] rounded-xl h-[2.5rem] flex items-center justify-center px-4 hover:bg-[var(--butonHover)] transition hover:-translate-y-1 hover:shadow-xl"
+            className="bg-[var(--green-500)] rounded-xl h-[2.5rem] flex items-center justify-center px-4 hover:bg-[var(--butonHover)] transition hover:-translate-y-1 hover:shadow-xl cursor-pointer"
           >
             {/* Adicionar produto */}
             <svg

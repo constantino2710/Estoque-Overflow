@@ -6,7 +6,7 @@ import logo from "@/assets/image.png";
 import logoSimbolo from "@/assets/logo.png";
 import { IfAdmin } from "@/auth/ifAdmin";
 import { SidebarToggle } from "./sidebarToggle";
-import { LucideHome, LucideLayers, LucideChartBar } from "lucide-react";
+import { LucideHome, LucideLayers, Lock } from "lucide-react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -68,8 +68,8 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
           </button>
 
           <button className={linkClass("/analytics")} onClick={() => navigate("/analytics")}>
-            <LucideChartBar size={20} />
-            {isOpen && "Análises"}
+            <Lock size={20}/>
+            {isOpen && "Admin"}
           </button>
         </div>
       </div>
