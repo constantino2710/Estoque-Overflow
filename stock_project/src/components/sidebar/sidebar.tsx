@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCurrentUsername } from "@/services/userService";
+import { getCurrentUsername } from "@/services/userService"; // Supondo que você tenha uma função para pegar o nome de usuário
 import { LogoutButton } from "../logoutButton";
 import logo from "@/assets/image.png";
 import logoSimbolo from "@/assets/logo.png";
-import { IfAdmin } from "@/auth/ifAdmin";
+import { IfAdmin } from "@/auth/ifAdmin"; // Importando o componente IfAdmin
 import { SidebarToggle } from "./sidebarToggle";
 import { LucideHome, LucideLayers, Lock } from "lucide-react";
 
@@ -67,10 +67,13 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
             {isOpen && "Estoque"}
           </button>
 
-          <button className={linkClass("/analytics")} onClick={() => navigate("/analytics")}>
-            <Lock size={20}/>
-            {isOpen && "Admin"}
-          </button>
+          
+          <IfAdmin>
+            <button className={linkClass("/analytics")} onClick={() => navigate("/analytics")}>
+              <Lock size={20} />
+              {isOpen && "Admin"}
+            </button>
+          </IfAdmin>
         </div>
       </div>
 
@@ -79,7 +82,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
         {/* Exibição de Admin */}
         {isOpen ? (
           <div className="text-sm mb-1">
-            <IfAdmin>Admin</IfAdmin>
+            <IfAdmin>Admin</IfAdmin> {/* Mostrar "Admin" somente se for admin */}
           </div>
         ) : (
           <div className="text-center text-sm mb-1">
