@@ -1,46 +1,91 @@
 import { useState } from "react";
+import Parse from "@/api/parseClient";
 
 export function AnalyticsPage() {
-  const [value, setValue] = useState<number | ''>('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleRegister = async () => {
+    if (!username || !password) {
+      alert("Preencha usuário e senha.");
+      return;
+    }
+
+    const user = new Parse.User();
+    user.set("username", username);
+    user.set("password", password);
+    user.set("isAdmin", isAdmin);
+
+    try {
+      await user.signUp();
+      setMessage("Usuário cadastrado com sucesso!");
+      setUsername("");
+      setPassword("");
+      setIsAdmin(false);
+    } catch (err: any) {
+      setMessage("Erro ao cadastrar: " + err.message);
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center h-screen">
-      <div className="w-[40rem] h-[16.6rem] p-4.8 flex flex-col gap-4.8 mt-[7.2rem] gap-4">
+    <div className="flex items-center justify-center h-screen w-full px-6">
+      <div className="w-full max-w-[40rem] bg-[#2a2a2e] p-8 rounded-lg shadow-md">
+        <h1 className="text-3xl text-white font-bold mb-6 text-center">
+          Cadastro de novos usuários
+        </h1>
 
-        {/* Linha: Nome do produto */}
-		<div className="flex items-center w-[40rem] gap-2">
-  			<label htmlFor="descricao" className="whitespace-nowrap">
-    			Nome do produto:
-  			</label>
-		<textarea
-			id="descricao"
-			rows={1}
-			className="border rounded px-2.4 py-1.6 resize-none w-full"
-			placeholder="Digite o nome do produto"
-		/>
-		</div>
+        {message && (
+          <p className="text-sm text-[var(--green-500)] mb-4 text-center">
+            {message}
+          </p>
+        )}
 
-        {/* Linha: Quantidade */}
-        <div className="flex items-center ">
-          <label htmlFor="quantity" className="text-right">Quantidade:</label>
+        {/* Nome de usuário */}
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-white mb-1">Nome de usuário:</label>
           <input
-            type="number"
-            value={value}
-            onChange={(e) => {
-              const newValue = e.target.value;
-              setValue(newValue === '' ? '' : Number(newValue));
-            }}
-            className="border rounded px-1.6 py-0.8 w-[5.25rem]"
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Digite o nome de usuário"
+            className="w-full px-3 py-2 rounded border border-gray-600 bg-[#1e1e20] text-white"
           />
         </div>
 
+        {/* Senha */}
+        <div className="mb-4">
+          <label htmlFor="password" className="block text-white mb-1">Senha:</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Digite a senha"
+            className="w-full px-3 py-2 rounded border border-gray-600 bg-[#1e1e20] text-white"
+          />
+        </div>
+
+        {/* Checkbox */}
+        <div className="flex items-center gap-2 mb-6 text-white">
+          <input
+            id="isAdmin"
+            type="checkbox"
+            checked={isAdmin}
+            onChange={(e) => setIsAdmin(e.target.checked)}
+          />
+          <label htmlFor="isAdmin">É administrador?</label>
+        </div>
+
         {/* Botão */}
-        <div className="flex justify-end mt-auto">
+        <div className="flex justify-end">
           <button
-            type="submit"
-            className="cursor-pointer bg-[var(--green-200)] w-[11.2rem] h-[3.2rem] rounded-lg text-white"
+            onClick={handleRegister}
+            className="bg-[var(--green-200)] hover:bg-[var(--green-300)] text-white font-semibold py-2 px-6 rounded-lg transition"
           >
-            Remover
+            Cadastrar
           </button>
         </div>
       </div>
