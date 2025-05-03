@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Parse from "parse/dist/parse.min.js";
 import { QuantityModal } from "./quantityModal";
 import { ActionMenuButton } from "./actionMenuButton";
+import { IfAdmin } from "@/auth/ifAdmin";
 
 type Product = {
   id: string;
@@ -91,6 +92,19 @@ export function ProductList({ reloadKey }: ProductListProps) {
     }
   };
 
+  const handleRemoveProduct = async (productId: string) => {
+    const confirm = window.confirm("Tem certeza que deseja remover este produto?");
+    if (!confirm) return;
+
+    try {
+      await Parse.Cloud.run("removeProduct", { productId });
+      setProducts((prev) => prev.filter((prod) => prod.id !== productId));
+    } catch (err) {
+      console.error("Erro ao remover produto:", err);
+      alert("Erro ao remover produto.");
+    }
+  };
+
   if (loading) return <p className="p-4">Carregando produtos...</p>;
   if (error) return <p className="p-4 text-red-500">{error}</p>;
 
@@ -105,10 +119,35 @@ export function ProductList({ reloadKey }: ProductListProps) {
             key={prod.id}
             className="relative rounded-xl shadow-sm px-4 py-3 bg-[var(--gray-600)] hover:shadow-md transition cursor-default text-sm"
           >
-            <div className="absolute top-2 right-2">
+            <div className="absolute top-2 right-2 flex gap-2">
               <ActionMenuButton
                 onSelect={(type) => openQuantityModal(prod, type)}
               />
+
+              <IfAdmin>
+                <button
+                  onClick={() => handleRemoveProduct(prod.id)}
+                  className="text-red-400 hover:text-red-600 transition"
+                  title="Remover produto"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6l-.867 12.142A2 2 0 0 1 16.138 20H7.862a2 2 0 0 1-1.995-1.858L5 6m5 0V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2" />
+                    <line x1="10" x2="10" y1="11" y2="17" />
+                    <line x1="14" x2="14" y1="11" y2="17" />
+                  </svg>
+                </button>
+              </IfAdmin>
             </div>
 
             <h3 className="text-base font-semibold text-white mb-1">
