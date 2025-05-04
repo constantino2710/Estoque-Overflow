@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Parse from "@/api/parseClient";
 
-export function AnalyticsPage() {
+export function AdminPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);

@@ -69,7 +69,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
 
           
           <IfAdmin>
-            <button className={linkClass("/analytics")} onClick={() => navigate("/analytics")}>
+            <button className={linkClass("/admin")} onClick={() => navigate("/admin")}>
               <Lock size={20} />
               {isOpen && "Admin"}
             </button>

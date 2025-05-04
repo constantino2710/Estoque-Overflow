@@ -61,8 +61,8 @@ export function DashBoard() {
       <h1 className="text-5xl">Dashboard</h1>
       <div className="flex flex-row gap-4 justify-center items-center mt-4 w-full h-[10rem]">
         <Card
-          title="Total de Produtos"
-          content={total !== null ? `${total} itens` : "Carregando..."}
+          title="Nº total de produtos"
+          content={total !== null ? `${total}` : "Carregando..."}
           icon={MyIcon1}
         />
         <Card

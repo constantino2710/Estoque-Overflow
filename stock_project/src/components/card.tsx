@@ -28,7 +28,7 @@ interface CardProps {
 		  <div>{icon}</div>
 		</div>
 		<div className='flex justify-center h-full mt-6'>
-		<p className="text-5xl">{content}</p>
+		<p className="text-[3rem]">{content}</p>
 		</div>
 		{children}
 	  </div>
