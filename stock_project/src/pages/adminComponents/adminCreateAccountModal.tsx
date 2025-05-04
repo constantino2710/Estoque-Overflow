@@ -75,7 +75,7 @@ export function AdminCreateAccountModal({ isOpen, onClose }: ModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center"
+      className="fixed inset-0 z-50 bg-[var(--bgModal)] flex justify-center items-center"
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
