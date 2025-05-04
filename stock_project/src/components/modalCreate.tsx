@@ -107,7 +107,7 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
             </button>
             <button
               onClick={handleSubmit}
-              className="cursor-pointer bg-[var(--green-400)] hover:bg-[var(--green-500)] transition-colors w-[11rem] h-[3rem] rounded-lg text-white"
+              className="cursor-pointer bg-[var(--primary)] hover:bg-[var(--secondary)] transition-colors w-[11rem] h-[3rem] rounded-lg text-white"
             >
               Adicionar
             </button>

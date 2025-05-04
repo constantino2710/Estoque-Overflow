@@ -10,8 +10,8 @@ export function ConfirmButton({ onConfirm, disabled }: ConfirmButtonProps) {
     <button
       onClick={onConfirm}
       disabled={disabled}
-      className={`mt-2 px-4 py-1 rounded bg-[var(--green-500)] text-white text-sm font-semibold 
-        hover:bg-[var(--green-300)] transition disabled:opacity-50 disabled:cursor-not-allowed`}
+      className={`mt-2 px-4 py-1 rounded bg-[var(--primary)] text-white text-sm font-semibold 
+        hover:bg-[var(--secondary)] transition disabled:opacity-50 disabled:cursor-not-allowed`}
     >
       Confirmar
     </button>

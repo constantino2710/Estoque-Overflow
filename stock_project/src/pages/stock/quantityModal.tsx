@@ -49,7 +49,7 @@ export function QuantityModal({
           min={1}
           value={value}
           onChange={(e) => setValue(parseInt(e.target.value) || 0)}
-          className="w-full mb-5 p-2 rounded bg-white text-black outline-none focus:ring-2 focus:ring-[var(--green-500)]"
+          className="w-full mb-5 p-2 rounded bg-white text-black outline-none focus:ring-2 focus:ring-[var(--primary)]"
         />
 
         <div className="flex flex-wrap justify-end gap-2">
@@ -61,7 +61,7 @@ export function QuantityModal({
           </button>
           <button
             onClick={handleConfirm}
-            className="px-4 py-2 rounded-md bg-[var(--green-500)] text-white hover:bg-[var(--green-300)] transition cursor-pointer"
+            className="px-4 py-2 rounded-md bg-[var(--primary)] text-white hover:bg-[var(--secondary)] transition cursor-pointer"
           >
             Confirmar
           </button>

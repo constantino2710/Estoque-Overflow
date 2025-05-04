@@ -38,7 +38,7 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 p-6 bg-[var(--gray-700)] rounded-xl w-full max-w-sm">
+    <div className="flex flex-col items-center gap-6 p-6 bg-[var(--gray-800)] rounded-xl w-full max-w-sm">
       {!preview ? (
         <>
           <h2 className="text-xl text-white font-semibold">Upload de imagem</h2>
@@ -51,7 +51,7 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
             onClick={triggerFileInput}
             className={`flex flex-col items-center justify-center w-full h-40 border-2 ${
               isDragging
-                ? 'border-[var(--green-300)] bg-[var(--gray-600)]'
+                ? 'border-[var(--secondary)] bg-[var(--gray-600)]'
                 : 'border-dashed border-gray-400'
             } rounded-lg cursor-pointer transition`}
           >
@@ -72,7 +72,7 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
         <img
           src={preview}
           alt="Imagem selecionada"
-          className="w-30 h-30 object-cover rounded-lg border-2 border-[var(--green-500)] shadow-lg"
+          className="w-30 h-30 object-cover rounded-lg border-2 border-[var(--primary)] shadow-lg"
         />
       )}
     </div>

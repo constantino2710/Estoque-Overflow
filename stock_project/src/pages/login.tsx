@@ -51,7 +51,7 @@ export function LoginPage() {
         />
         <button
           onClick={handleLogin}
-          className="w-full bg-[var(--green-500)] text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+          className="w-full bg-[var(--primary)] text-white py-2 rounded hover:bg-[var(--secondary)] transition cursor-pointer"
         >
           Entrar
         </button>

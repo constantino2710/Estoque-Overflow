@@ -13,7 +13,7 @@ interface ProdutoComPercentual {
 function getBarColor(percentual: number) {
   if (percentual <= 10) return "bg-[var(--red)]";
   if (percentual <= 30) return "bg-[var(--alert)]";
-  return "bg-[var(--green-500)]";
+  return "bg-[var(--primary)]";
 }
 
 export function StockedItems() {

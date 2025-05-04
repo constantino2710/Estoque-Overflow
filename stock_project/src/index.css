@@ -10,9 +10,9 @@
 
   --green-100: #8dcec3;
   --green-200: #57b1a4;
-  --green-300: #399a8b;
+  /*--green-300: #399a8b;*/
   --green-400: #137e6e;
-  --green-500: #1f6f66; /*botão adicionar*/
+  /*--green-500: #1f6f66;*/  /*botão adicionar*/
   --green-600: #0a584c;
   --green-700: #07453b;
   --green-800: #05322a;
@@ -32,6 +32,10 @@
 
   --border: #3c3c3c;
 
+  --primary: #1f6f66;
+  --secondary: #399a8b;
+  
+
   --text: #a0a0a0;
   --text2: #181818;
 
@@ -43,7 +47,7 @@
 }
 
 span {
-  color: var(--green-300);
+  color: var(--green-500);
   font-size: 1.2rem;
 }
 
