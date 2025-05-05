@@ -77,8 +77,6 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
       </div>
 
       {/* Rodapé com admin, nome e avatar */}
-
-        {/* Nome + Foto do usuário */}
       <div className="pb-4 px-4">
         {/* Exibição de Admin */}
         {isOpen ? (
@@ -90,8 +88,10 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
             <IfAdmin>Admin</IfAdmin>
           </div>
         )}
-        {isOpen && userInfo && (
-          <div className="flex items-center gap-2 mb-2">
+
+        {/* Foto + nome */}
+        {userInfo && (
+          <div className={`flex items-center gap-2 mb-2 ${isOpen ? "" : "justify-center"}`}>
             {userInfo.profileImage ? (
               <img
                 src={userInfo.profileImage}
@@ -103,7 +103,9 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
                 {userInfo.username[0].toUpperCase()}
               </div>
             )}
-            <p className="text-[var(--gray-300)] text-sm truncate">{userInfo.username}</p>
+            {isOpen && (
+              <p className="text-[var(--gray-300)] text-sm truncate">{userInfo.username}</p>
+            )}
           </div>
         )}
 

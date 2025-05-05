@@ -10,9 +10,9 @@
 
   --green-100: #8dcec3;
   --green-200: #57b1a4;
-  /*--green-300: #399a8b;*/
+  --green-300: #399a8b;
   --green-400: #137e6e;
-  /*--green-500: #1f6f66;*/  /*botão adicionar*/
+  --green-500: #1f6f66;  /*botão adicionar*/
   --green-600: #0a584c;
   --green-700: #07453b;
   --green-800: #05322a;
@@ -44,6 +44,19 @@
   --alert: #D97706;
 
   --bgModal: rgba(0, 0, 0, 0.8);
+
+  /* Scrollbar fallback para navegadores baseados em WebKit */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--gray-900);
+}
+
 }
 
 span {
@@ -75,3 +88,8 @@ button {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Safari e Chrome */
 }
+
+.custom-scrollbar {
+  scrollbar-gutter: stable;
+}
+

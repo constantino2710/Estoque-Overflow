@@ -12,7 +12,11 @@ interface User {
   profileImage: string | null;
 }
 
-export function UserAdminList() {
+interface UserAdminListProps {
+  onOpenModal: () => void;
+}
+
+export function UserAdminList({ onOpenModal }: UserAdminListProps) {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,12 +34,23 @@ export function UserAdminList() {
     fetchUsers();
   }, []);
 
-  if (loading) return <p className="text-white">Carregando usuários...</p>;
+  if (loading) return <p className="text-white px-6">Carregando usuários...</p>;
 
   return (
-    <div className="w-full bg-[var(--gray-800)] p-6 rounded-xl text-white h-[30rem]">
-      <h2 className="text-2xl font-bold mb-4">Usuários Cadastrados</h2>
-      <div className="flex flex-col gap-3 overflow-y-auto h-[calc(100%-3rem)] pr-2 scrollbar-hide">
+    <div className="w-full bg-[var(--gray-800)] px-6 py-6 rounded-xl text-white h-[30rem] box-border">
+      {/* Título e botão */}
+      <div className="flex justify-between items-start mb-4">
+        <h2 className="text-2xl font-bold leading-tight">Usuários Cadastrados</h2>
+        <button
+          onClick={onOpenModal}
+          className="bg-[var(--primary)] hover:bg-[var(--secondary)] text-white px-4 py-1.5 text-sm rounded-lg font-medium shadow cursor-pointer transition duration-200 ease-in-out"
+        >
+          Criar nova conta
+        </button>
+      </div>
+
+      {/* Lista de usuários com scrollbar personalizada */}
+      <div className="flex flex-col gap-3 overflow-y-auto h-[calc(100%-3rem)] pr-2 scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[var(--gray-600)] scrollbar">
         {users.map((u) => (
           <div
             key={u.id}
@@ -56,7 +71,7 @@ export function UserAdminList() {
               )}
             </div>
 
-            {/* Informações do usuário */}
+            {/* Informações */}
             <div className="flex flex-row flex-wrap items-center justify-between w-full text-sm text-[var(--gray-200)]">
               <div className="w-[25%] font-semibold text-[var(--primary)]">{u.username}</div>
               <div className="w-[20%]">{u.isAdmin ? "Admin" : "Usuário"}</div>

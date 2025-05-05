@@ -17,7 +17,6 @@ interface ProductListProps {
   reloadKey: number;
 }
 
-// 🔧 Função para definir cor com base no percentual
 function getBarColor(percentual: number) {
   if (percentual <= 10) return "bg-[var(--red)]";
   if (percentual <= 30) return "bg-[var(--alert)]";
@@ -109,7 +108,7 @@ export function ProductList({ reloadKey }: ProductListProps) {
   if (error) return <p className="p-4 text-red-500">{error}</p>;
 
   return (
-    <div className="flex flex-col gap-3 p-3 w-full overflow-y-auto scrollbar-hide relative">
+    <div className="flex flex-col gap-3 px-3 pt-3 pb-1 w-full overflow-y-auto relative scrollbar-hide">
       {products.map((prod) => {
         const percentual = Math.round((prod.quantity / prod.stockLimit) * 100);
         const barColor = getBarColor(percentual);
