@@ -58,7 +58,12 @@ export function AdminCreateAccountModal({ isOpen, onClose }: ModalProps) {
 
     try {
       await user.signUp();
-      await Parse.User.become(sessionToken);
+      if (sessionToken) {
+        await Parse.User.become(sessionToken);
+      } else {
+        setMessage("Erro: Token de sessão inválido.");
+        return;
+      }
       window.location.reload();
     } catch (err: unknown) {
       if (err instanceof Error) {
