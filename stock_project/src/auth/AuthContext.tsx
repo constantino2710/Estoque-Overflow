@@ -14,12 +14,12 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<Parse.User | null>(null);
+  const [user, setUser] = useState<Parse.User | null>(null); // 👈 tipo correto
   const [isLoading, setIsLoading] = useState(true);
 
   const refreshUser = () => {
-    const current = Parse.User.current();
-    setUser(current || null);
+    const currentUser = Parse.User.current(); // retorna Parse.User | null
+    setUser(currentUser as Parse.User | null); // ✅ compatível
   };
 
   useEffect(() => {
