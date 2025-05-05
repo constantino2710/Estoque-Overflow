@@ -24,6 +24,11 @@ export function AdminCreateAccountModal({ isOpen, onClose }: ModalProps) {
       return;
     }
 
+    if (username.length > 15) {
+      alert("O nome de usuário deve ter no máximo 15 caracteres.");
+      return;
+    }
+
     const currentUser = Parse.User.current();
     if (!currentUser) {
       setMessage("Você precisa estar logado para criar contas.");
@@ -94,8 +99,9 @@ export function AdminCreateAccountModal({ isOpen, onClose }: ModalProps) {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            maxLength={15}
             className="w-full px-3 py-2 rounded border border-gray-600 bg-[#1e1e20] text-white"
-            placeholder="Digite o nome de usuário"
+            placeholder="Digite no máximo 15 caracteres"
           />
         </div>
 

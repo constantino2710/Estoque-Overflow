@@ -10,7 +10,8 @@ export function AdminPage() {
 
   return (
     <IfAdmin>
-      <div className="flex items-center justify-center h-screen w-full px-6">
+      <div className="flex items-center justify-center h-screen w-full px-6 flex-col gap-6">
+      <h1 className="text-5xl">Admin</h1>
         <div className="w-full max-w-[60rem] bg-[var(--gray-800)] p-8 rounded-lg shadow-md relative">
           {/* Lista de usuários com título e botão */}
           <UserAdminList onOpenModal={() => setIsModalOpen(true)} />

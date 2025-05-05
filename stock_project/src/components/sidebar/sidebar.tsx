@@ -29,16 +29,14 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
   }, []);
 
   const linkClass = (path: string) =>
-    `${
-      pathname === path ? "text-[var(--secondary)]" : "text-[var(--gray-300)]"
-    } 
-    cursor-pointer text-base w-full rounded-lg h-[2.5rem] flex items-center gap-2 
-    ${isOpen ? "justify-start px-4" : "justify-center"} 
-    hover:bg-[var(--gray-500)] transition`;
+    `${pathname === path ? "text-[var(--secondary)]" : "text-[var(--gray-300)]"} 
+     cursor-pointer text-base w-full rounded-lg h-[2.5rem] flex items-center justify-center gap-2 
+     ${isOpen ? "justify-start px-4" : "justify-center"} 
+     hover:bg-[var(--gray-600)] transition`;
 
   return (
     <div
-      className={`h-screen bg-[var(--gray-600)] text-white flex flex-col justify-between 
+      className={`h-screen bg-[var(--gray-800)] text-white flex flex-col justify-between 
       ${isOpen ? "w-[15rem]" : "w-[4.5rem]"} transition-all duration-300`}
     >
       {/* Topo com toggle e logo */}
@@ -56,7 +54,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
         </div>
 
         {/* Navegação */}
-        <div className="pt-4 flex flex-col gap-1">
+        <div className="pt-4 flex flex-col gap-1 intems-center justify-center">
           <button className={linkClass("/")} onClick={() => navigate("/")}>
             <LucideHome size={20} />
             {isOpen && "Dashboard"}
@@ -78,36 +76,43 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
 
       {/* Rodapé com admin, nome e avatar */}
       <div className="pb-4 px-4">
-        {/* Exibição de Admin */}
-        {isOpen ? (
-          <div className="text-sm mb-1">
-            <IfAdmin>Admin</IfAdmin>
-          </div>
-        ) : (
-          <div className="text-center text-sm mb-1">
-            <IfAdmin>Admin</IfAdmin>
-          </div>
-        )}
+        <div className="bg-[var(--gray-900)] border border-[var(--gray-600)] flex flex-col items-center rounded-xl">
+          {/* Foto + nome */}
+          {userInfo && (
+            <div className={`flex items-center gap-2 mt-2 ${isOpen ? "" : "justify-center"}`}>
+              {userInfo.profileImage ? (
+                <img
+                  src={userInfo.profileImage}
+                  alt="Avatar"
+                  className="w-[2.5rem] h-[2.5rem] rounded-full object-cover border border-[var(--primary)]"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-[var(--gray-500)] flex items-center justify-center text-xs text-white">
+                  {userInfo.username[0].toUpperCase()}
+                </div>
+              )}
+              {isOpen && (
+                <p
+                  className="text-[var(--gray-300)] text-[1rem] truncate max-w-[10rem]"
+                  title={userInfo.username}
+                >
+                  {userInfo.username}
+                </p>
+              )}
+            </div>
+          )}
 
-        {/* Foto + nome */}
-        {userInfo && (
-          <div className={`flex items-center gap-2 mb-2 ${isOpen ? "" : "justify-center"}`}>
-            {userInfo.profileImage ? (
-              <img
-                src={userInfo.profileImage}
-                alt="Avatar"
-                className="w-8 h-8 rounded-full object-cover border border-[var(--primary)]"
-              />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-[var(--gray-500)] flex items-center justify-center text-xs text-white">
-                {userInfo.username[0].toUpperCase()}
-              </div>
-            )}
-            {isOpen && (
-              <p className="text-[var(--gray-300)] text-sm truncate">{userInfo.username}</p>
-            )}
-          </div>
-        )}
+          {/* Exibição de Admin */}
+          {isOpen ? (
+            <div className="text-sm mb-2">
+              <IfAdmin>Admin</IfAdmin>
+            </div>
+          ) : (
+            <div className="text-center text-sm mb-2">
+              <IfAdmin>Admin</IfAdmin>
+            </div>
+          )}
+        </div>
 
         {/* Logout */}
         <LogoutButton isSidebarOpen={isOpen} />

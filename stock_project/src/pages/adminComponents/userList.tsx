@@ -73,7 +73,12 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
 
             {/* Informações */}
             <div className="flex flex-row flex-wrap items-center justify-between w-full text-sm text-[var(--gray-200)]">
-              <div className="w-[25%] font-semibold text-[var(--primary)]">{u.username}</div>
+              <div
+                className="w-[25%] font-semibold text-[var(--primary)] truncate"
+                title={u.username}
+              >
+                {u.username}
+              </div>
               <div className="w-[20%]">{u.isAdmin ? "Admin" : "Usuário"}</div>
               <div className="w-[30%]">Criado em: {new Date(u.createdAt).toLocaleDateString()}</div>
               <div className="w-[25%]">Criado por: {u.createdBy || "Desconhecido"}</div>
