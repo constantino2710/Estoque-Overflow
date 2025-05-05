@@ -116,7 +116,7 @@ export function ProductList({ reloadKey }: ProductListProps) {
         return (
           <div
             key={prod.id}
-            className="relative rounded-xl shadow-sm px-4 py-3 bg-[var(--gray-600)] hover:shadow-md transition cursor-default text-sm"
+            className="relative rounded-xl shadow-sm px-4 py-3 bg-[var(--gray-700)] hover:shadow-md transition cursor-default text-sm"
           >
             <div className="absolute top-2 right-2 flex gap-2">
               <ActionMenuButton

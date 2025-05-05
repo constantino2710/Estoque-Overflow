@@ -15,7 +15,7 @@ export function StockPage() {
     <div className="flex flex-col h-screen gap-4 items-center p-4">
       <h1 className="text-5xl">Estoque</h1>
 
-      <div className="flex flex-row gap-2 w-full">
+      <div className="flex flex-row gap-2 w-full ">
         <div className="relative flex w-full">
           <input
             type="text"

@@ -18,7 +18,7 @@ interface CardProps {
 	  ? 'border-2 border-red-500'
 	  : variant === 'alert'
 	  ? 'border-2 border-yellow-500'
-	  : 'border border-[var(--gray-700)]';
+	  : 'border border-[var(--gray-200)]';
   
   
 	return (

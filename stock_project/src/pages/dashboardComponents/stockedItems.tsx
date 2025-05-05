@@ -36,7 +36,7 @@ export function StockedItems() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 w-full h-full bg-[var(--gray-800)] rounded-xl p-4 overflow-auto">
+    <div className="flex flex-col gap-4 w-full h-full bg-[var(--gray-800)] rounded-xl p-4 overflow-auto border border-[var(--gray-200)]">
       <h2 className="text-2xl text-white font-bold">Estoque Atual</h2>
 
       {loading && <p className="text-white">Carregando ocupação...</p>}
@@ -55,7 +55,7 @@ export function StockedItems() {
             <div className="w-[10rem] text-sm whitespace-nowrap text-right">
               {item.quantity} / {item.stockLimit} ({item.percentual}%)
             </div>
-            <div className="flex-1 h-3 bg-gray-700 rounded overflow-hidden">
+            <div className="flex-1 h-3 bg-gray-700 rounded overflow-hidden ">
               <div
                 className={`${getBarColor(item.percentual)} h-full transition-all duration-500`}
                 style={{ width: `${item.percentual}%` }}
