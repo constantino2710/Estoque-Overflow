@@ -64,6 +64,11 @@ export function ProductList({ reloadKey }: ProductListProps) {
     const product = modalState.product;
     if (!product) return;
 
+    if (value <= 0) {
+      alert("Informe um valor maior que zero.");
+      return;
+    }
+
     const delta = modalState.type === "add" ? value : -value;
     const newQuantity = product.quantity + delta;
 
@@ -75,7 +80,8 @@ export function ProductList({ reloadKey }: ProductListProps) {
     try {
       await Parse.Cloud.run("updateProductQuantity", {
         productId: product.id,
-        quantity: newQuantity,
+        amount: value,
+        type: modalState.type,
       });
 
       setProducts((prev) =>
@@ -83,9 +89,9 @@ export function ProductList({ reloadKey }: ProductListProps) {
           p.id === product.id ? { ...p, quantity: newQuantity } : p
         )
       );
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao atualizar produto.");
+    } catch (err: any) {
+      console.error("Erro ao atualizar produto:", err);
+      alert(err.message || "Erro ao atualizar produto.");
     } finally {
       setModalState({ isOpen: false, product: null, type: "add" });
     }
@@ -116,7 +122,7 @@ export function ProductList({ reloadKey }: ProductListProps) {
         return (
           <div
             key={prod.id}
-            className="relative rounded-xl shadow-sm px-4 py-3 bg-[var(--gray-700)] hover:shadow-md transition cursor-default text-sm"
+            className="relative rounded-xl shadow-sm px-4 py-3 bg-[var(--gray-900)] hover:shadow-md transition cursor-default text-sm border border-[var(--gray-200)]"
           >
             <div className="absolute top-2 right-2 flex gap-2">
               <ActionMenuButton
@@ -149,24 +155,19 @@ export function ProductList({ reloadKey }: ProductListProps) {
               </IfAdmin>
             </div>
 
-            <h3 className="text-base font-semibold text-white mb-1">
-              {prod.name}
-            </h3>
+            <h3 className="text-base font-semibold text-white mb-1">{prod.name}</h3>
             <p className="text-white">
               <span className="font-medium">Quantidade:</span> {prod.quantity}
             </p>
             <p className="text-white">
-              <span className="font-medium">Limite de Estoque:</span>{" "}
-              {prod.stockLimit}
+              <span className="font-medium">Limite de Estoque:</span> {prod.stockLimit}
             </p>
 
             <div className="mt-2">
               <div className="w-full bg-[var(--gray-500)] rounded-full h-2">
                 <div
                   className={`h-2 rounded-full ${barColor} transition-all duration-300`}
-                  style={{
-                    width: `${Math.min(percentual, 100)}%`,
-                  }}
+                  style={{ width: `${Math.min(percentual, 100)}%` }}
                 />
               </div>
               <p className="text-xs text-gray-300 mt-1">

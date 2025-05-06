@@ -43,6 +43,7 @@ const MyIcon4 = (
 
 export function DashBoard() {
   const [total, setTotal] = useState<number | null>(null);
+
   useEffect(() => {
     async function fetchTotal() {
       try {
@@ -52,14 +53,16 @@ export function DashBoard() {
         console.error("Erro ao buscar total:", error);
       }
     }
-  
+
     fetchTotal();
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full h-screen p-4">
-      <h1 className="text-5xl">Dashboard</h1>
-      <div className="flex flex-row gap-4 justify-center items-center mt-4 w-full h-[10rem]">
+    <div className="flex flex-col items-center w-full h-screen overflow-hidden p-4">
+      <h1 className="text-5xl mb-4">Dashboard</h1>
+
+      {/* Cards superiores */}
+      <div className="flex flex-row gap-4 justify-center items-center w-full h-[10rem]">
         <Card
           title="Nº total de itens em estoque"
           content={total !== null ? `${total}` : "Carregando..."}
@@ -82,12 +85,19 @@ export function DashBoard() {
           variant="danger"
         />
       </div>
-      <div className="flex flex-row gap-4 justify-center items-center mt-4 w-full h-full">
-        <StockedItems />
+
+      {/* Área de conteúdo com scroll interno */}
+      <div className="flex flex-row gap-4 justify-center items-stretch mt-4 w-full max-w-full h-full overflow-hidden">
+        <div className="w-full h-full overflow-hidden">
+          <StockedItems />
+        </div>
         <IfAdmin>
-          <HistoryItems />
+          <div className="w-[32rem] h-full overflow-hidden">
+            <HistoryItems />
+          </div>
         </IfAdmin>
       </div>
     </div>
   );
 }
+

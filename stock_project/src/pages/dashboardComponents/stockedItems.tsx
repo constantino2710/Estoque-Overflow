@@ -49,13 +49,13 @@ export function StockedItems() {
         dados.map((item) => (
           <div
             key={item.name}
-            className="flex items-center justify-between gap-4 text-white"
+            className="flex items-center gap-2 text-white w-full min-w-0"
           >
-            <div className="w-1/3 truncate font-medium">{item.name}</div>
-            <div className="w-[10rem] text-sm whitespace-nowrap text-right">
+            <div className="flex-[2] truncate font-medium">{item.name}</div>
+            <div className="flex-[1] text-sm whitespace-nowrap text-right">
               {item.quantity} / {item.stockLimit} ({item.percentual}%)
             </div>
-            <div className="flex-1 h-3 bg-gray-700 rounded overflow-hidden ">
+            <div className="flex-[3] h-3 bg-gray-700 rounded overflow-hidden">
               <div
                 className={`${getBarColor(item.percentual)} h-full transition-all duration-500`}
                 style={{ width: `${item.percentual}%` }}

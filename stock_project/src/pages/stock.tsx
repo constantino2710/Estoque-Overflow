@@ -87,7 +87,7 @@ export function StockPage() {
         </IfAdmin>
       </div>
 
-      <div className="w-full h-full bg-[var(--gray-800)] flex flex-col items-center rounded-xl overflow-y-auto px-2 scrollbar-hide">
+      <div className="w-full h-full bg-[var(--gray-800)] flex flex-col items-center rounded-xl overflow-y-auto px-2 scrollbar-hide border border-[var(--gray-200)]">
         <ProductList reloadKey={reloadKey} />
       </div>
 

@@ -50,11 +50,11 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
       </div>
 
       {/* Lista de usuários com scrollbar personalizada */}
-      <div className="flex flex-col gap-3 overflow-y-auto h-[calc(100%-3rem)] pr-2 scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[var(--gray-600)] scrollbar">
+      <div className="flex flex-col gap-3 overflow-y-auto h-[calc(100%-3rem)] pr-2 scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[var(--gray-600)] scrollbar ">
         {users.map((u) => (
           <div
             key={u.id}
-            className="flex items-center justify-between gap-6 bg-[var(--gray-900)] rounded-lg p-4 shadow-sm border border-[var(--gray-800)] w-full"
+            className="flex items-center justify-between gap-6 bg-[var(--gray-900)] rounded-lg p-4 shadow-sm border border-[var(--gray-200)] w-full cursor-default "
           >
             {/* Imagem ou inicial */}
             <div className="flex-shrink-0">
