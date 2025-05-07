@@ -6,6 +6,7 @@ import { StockedItems } from "./dashboardComponents/stockedItems";
 import { HistoryItems } from "./dashboardComponents/historyItems";
 import { IfAdmin } from "@/auth/ifAdmin";
 import Parse from "@/api/parseClient";
+import { Header } from "@/components/header";
 
 const MyIcon1 = (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-icon lucide-package">
@@ -58,8 +59,10 @@ export function DashBoard() {
   }, []);
 
   return (
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-[var(--gray-900)]">
+
+      <Header title="Dashboard" />
     <div className="flex flex-col items-center w-full h-screen overflow-hidden p-4">
-      <h1 className="text-5xl mb-4">Dashboard</h1>
 
       {/* Cards superiores */}
       <div className="flex flex-row gap-4 justify-center items-center w-full h-[10rem]">
@@ -97,6 +100,7 @@ export function DashBoard() {
           </div>
         </IfAdmin>
       </div>
+    </div>
     </div>
   );
 }

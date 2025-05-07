@@ -29,14 +29,14 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
   }, []);
 
   const linkClass = (path: string) =>
-    `${pathname === path ? "text-[var(--secondary)]" : "text-[var(--gray-300)]"} 
+    `${pathname === path ? "text-[var(--secondary)]" : "text-[var(--border)]"} 
      cursor-pointer text-base w-full rounded-lg h-[2.5rem] flex items-center justify-center gap-2 
      ${isOpen ? "justify-start px-4" : "justify-center"} 
      hover:bg-[var(--gray-600)] transition`;
 
   return (
     <div
-      className={`h-screen bg-[var(--gray-800)] text-white flex flex-col justify-between 
+      className={`h-screen bg-[var(--gray-800)] text-white flex flex-col justify-between border-r border-[var(--border)]
       ${isOpen ? "w-[15rem]" : "w-[4.5rem]"} transition-all duration-300`}
     >
       {/* Topo com toggle e logo */}
@@ -76,43 +76,63 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
 
       {/* Rodapé com admin, nome e avatar */}
       <div className="pb-4 px-4">
-        <div className="bg-[var(--gray-900)] border border-[var(--gray-600)] flex flex-col items-center rounded-xl">
-          {/* Foto + nome */}
-          {userInfo && (
-            <div className={`flex items-center gap-2 mt-2 ${isOpen ? "" : "justify-center"}`}>
-              {userInfo.profileImage ? (
-                <img
-                  src={userInfo.profileImage}
-                  alt="Avatar"
-                  className="w-[2.5rem] h-[2.5rem] rounded-full object-cover border border-[var(--primary)]"
-                />
-              ) : (
-                <div className="w-8 h-8 rounded-full bg-[var(--gray-500)] flex items-center justify-center text-xs text-white">
-                  {userInfo.username[0].toUpperCase()}
-                </div>
-              )}
-              {isOpen && (
-                <p
-                  className="text-[var(--gray-300)] text-[1rem] truncate max-w-[10rem]"
-                  title={userInfo.username}
-                >
-                  {userInfo.username}
-                </p>
-              )}
-            </div>
-          )}
+      <div
+  className={`bg-[var(--gray-900)] border border-[var(--border)] rounded-xl flex flex-col items-center ${
+    isOpen ? "px-3 py-2" : "p-2"
+  }`}
+>
+  {userInfo && (
+    <>
+      <div
+        className={`${
+          isOpen
+            ? "flex items-center gap-2 w-full"
+            : "flex flex-col items-center justify-center"
+        }`}
+      >
+        {/* Foto do usuário */}
+        {userInfo.profileImage ? (
+          <img
+            src={userInfo.profileImage}
+            alt="Avatar"
+            className={`rounded-full object-cover border border-[var(--primary)] ${
+              isOpen
+                ? "w-[2.5rem] h-[2.5rem] min-w-[2.5rem] min-h-[2.5rem]"
+                : "w-[2rem] h-[2rem] min-w-[2rem] min-h-[2rem]"
+            }`}
+          />
+        ) : (
+          <div
+            className={`rounded-full bg-[var(--gray-500)] flex items-center justify-center text-sm text-white ${
+              isOpen ? "w-10 h-10" : "w-8 h-8"
+            }`}
+          >
+            {userInfo.username[0].toUpperCase()}
+          </div>
+        )}
 
-          {/* Exibição de Admin */}
-          {isOpen ? (
-            <div className="text-sm mb-2">
-              <IfAdmin>Admin</IfAdmin>
-            </div>
-          ) : (
-            <div className="text-center text-sm mb-2">
-              <IfAdmin>Admin</IfAdmin>
-            </div>
-          )}
-        </div>
+        {/* Nome + Admin (sidebar aberta) */}
+        {isOpen && (
+          <div className="flex flex-col text-sm text-[var(--gray-300)] overflow-hidden">
+            <p className="truncate max-w-[7rem]" title={userInfo.username}>
+              {userInfo.username}
+            </p>
+            <IfAdmin>
+              <p className="text-xs text-[var(--gray-300)]">Admin</p>
+            </IfAdmin>
+          </div>
+        )}
+      </div>
+
+      {/* Admin abaixo da foto (sidebar fechada) */}
+      {!isOpen && (
+        <IfAdmin>
+          <p className="text-xs text-[var(--gray-300)] mt-2">Adm</p>
+        </IfAdmin>
+      )}
+    </>
+  )}
+</div>
 
         {/* Logout */}
         <LogoutButton isSidebarOpen={isOpen} />

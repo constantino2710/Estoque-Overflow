@@ -34,58 +34,64 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
     fetchUsers();
   }, []);
 
-  if (loading) return <p className="text-white px-6">Carregando usuários...</p>;
-
   return (
-    <div className="w-full bg-[var(--gray-800)] px-6 py-6 rounded-xl text-white h-[30rem] box-border">
+    <div className="flex flex-col gap-4 w-full h-full overflow-hidden">
       {/* Título e botão */}
-      <div className="flex justify-between items-start mb-4">
-        <h2 className="text-2xl font-bold leading-tight">Usuários Cadastrados</h2>
+      <div className="flex justify-between items-center shrink-0">
+        <h2 className="text-2xl font-bold text-white">Usuários Cadastrados</h2>
         <button
           onClick={onOpenModal}
-          className="bg-[var(--primary)] hover:bg-[var(--secondary)] text-white px-4 py-1.5 text-sm rounded-lg font-medium shadow cursor-pointer transition duration-200 ease-in-out"
+          className="bg-[var(--primary)] hover:bg-[var(--secondary)] text-white px-4 py-2 text-sm rounded-lg font-medium shadow transition duration-200 ease-in-out"
         >
           Criar nova conta
         </button>
       </div>
 
-      {/* Lista de usuários com scrollbar personalizada */}
-      <div className="flex flex-col gap-3 overflow-y-auto h-[calc(100%-3rem)] pr-2 scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[var(--gray-600)] scrollbar ">
-        {users.map((u) => (
-          <div
-            key={u.id}
-            className="flex items-center justify-between gap-6 bg-[var(--gray-900)] rounded-lg p-4 shadow-sm border border-[var(--gray-200)] w-full cursor-default "
-          >
-            {/* Imagem ou inicial */}
-            <div className="flex-shrink-0">
-              {u.profileImage ? (
-                <img
-                  src={u.profileImage}
-                  alt={`Foto de ${u.username}`}
-                  className="w-10 h-10 rounded-full object-cover border border-[var(--primary)]"
-                />
-              ) : (
-                <div className="w-10 h-10 rounded-full bg-[var(--gray-600)] flex items-center justify-center text-sm text-white">
-                  {u.username[0].toUpperCase()}
-                </div>
-              )}
-            </div>
+      {/* Estado de carregamento */}
+      {loading && <p className="text-white">Carregando usuários...</p>}
 
-            {/* Informações */}
-            <div className="flex flex-row flex-wrap items-center justify-between w-full text-sm text-[var(--gray-200)]">
-              <div
-                className="w-[25%] font-semibold text-[var(--primary)] truncate"
-                title={u.username}
-              >
-                {u.username}
+      {/* Lista com altura dinâmica */}
+      {!loading && (
+        <div className="flex flex-col gap-3 flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[var(--gray-700)]">
+          {users.length === 0 && (
+            <p className="text-white">Nenhum usuário encontrado.</p>
+          )}
+          {users.map((u) => (
+            <div
+              key={u.id}
+              className="flex items-center gap-4 bg-[var(--gray-900)] p-4 rounded-lg border border-[var(--gray-200)] shadow-sm w-full"
+            >
+              <div className="flex-shrink-0">
+                {u.profileImage ? (
+                  <img
+                    src={u.profileImage}
+                    alt={`Foto de ${u.username}`}
+                    className="w-10 h-10 rounded-full object-cover border border-[var(--primary)]"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-[var(--gray-600)] flex items-center justify-center text-sm text-white">
+                    {u.username[0].toUpperCase()}
+                  </div>
+                )}
               </div>
-              <div className="w-[20%]">{u.isAdmin ? "Admin" : "Usuário"}</div>
-              <div className="w-[30%]">Criado em: {new Date(u.createdAt).toLocaleDateString()}</div>
-              <div className="w-[25%]">Criado por: {u.createdBy || "Desconhecido"}</div>
+
+              <div className="flex flex-col text-sm text-white w-full">
+                <div className="flex justify-between w-full">
+                  <span className="font-semibold text-[var(--primary)] truncate max-w-[10rem]" title={u.username}>
+                    {u.username}
+                  </span>
+                  <span>{u.isAdmin ? "Admin" : "Usuário"}</span>
+                </div>
+                <div className="flex justify-between w-full text-[var(--border)] text-xs pt-1">
+                  <span>Criado em: {new Date(u.createdAt).toLocaleDateString()}</span>
+                  <span>Criado por: {u.createdBy || "Desconhecido"}</span>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
+
