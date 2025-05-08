@@ -6,7 +6,7 @@ import { getLastStockUpdates } from "@/services/stockService";
 interface StockUpdate {
   productName: string;
   quantity: number;
-  action: "add" | "remove";
+  action: "in" | "out";
   user: {
     id: string;
     username: string;
@@ -67,12 +67,12 @@ export function HistoryItems() {
                 <p className="text-[var(--text)] leading-none">{u.productName}</p>
                 <p
                   className={`font-semibold leading-tight ${
-                    u.action === "add"
+                    u.action === "in"
                       ? "text-[var(--primary)]"
                       : "text-[var(--red)]"
                   }`}
                 >
-                  {u.action === "add" ? "Adicionado" : "Retirado"} {u.quantity} unidade(s)
+                  {u.action === "out" ? "Retirado" : "Adicionado"} {u.quantity} unidade(s)
                 </p>
                 <p className="text-[var(--text)] text-xs leading-tight">
                   Por: {u.user.username} –{" "}

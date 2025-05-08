@@ -30,7 +30,7 @@
   --gray-800: #161B22; /*caixa secundária*/
   --gray-900: #0D1117; /*background-color*/
 
-  --bg1: #f1f1f1; /* background principal*/
+  --bg1: #f4f4f4; /* background principal*/
   --bg2: #efefef; /* background secundario*/
   --bg3: #98b2b7; /* caixa secundária */
   --bg4: #536176; /* background da scrollbar*/
@@ -96,8 +96,8 @@ input,
 textarea,
 button {
   font: 400 16px "roboto", sans-serif;
-  font-weight: 700;
-  font-size: 1.5rem;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 /* Esconde scrollbars em navegadores compatíveis */

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { IfAdmin } from "@/auth/ifAdmin";
 import { ModalCreate } from "@/components/modalCreate";
-import { ProductList } from "./stock/productList";
+import { ProductList } from "./stockComponents/productList";
 import { Header } from "@/components/header";
 
 export function StockPage() {

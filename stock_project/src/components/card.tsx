@@ -4,6 +4,7 @@ interface CardProps {
 	icon: React.ReactNode;
 	children?: React.ReactNode;
 	variant?: 'default' | 'alert'| 'danger';
+	tooltip?: string;
   }
   
   export const Card: React.FC<CardProps> = ({
