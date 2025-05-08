@@ -76,6 +76,7 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
               </div>
 
               <div className="flex flex-col text-sm text-white w-full">
+              <div className="flex flex-col text-sm w-full">
                 <div className="flex justify-between w-full">
                   <span
                     className="font-semibold text-[var(--primary)] truncate max-w-[10rem]"
@@ -87,12 +88,17 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
                     {u.isAdmin ? "Admin" : "Usuário"}
                   </span>
                 </div>
-                <div className="flex justify-between w-full text-[var(--border)] text-xs pt-1">
+
+                <div className="flex justify-between w-full text-[var(--text)] text-xs pt-1">
                   <span>
                     Criado em: {new Date(u.createdAt).toLocaleDateString()}
                   </span>
-                  <span>Criado por: {u.createdBy || "Desconhecido"}</span>
+                  <span>
+                    Criado por: {u.createdBy || "Desconhecido"}
+                  </span>
                 </div>
+              </div>
+
               </div>
             </div>
           ))}
