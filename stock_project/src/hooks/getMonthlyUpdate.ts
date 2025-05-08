@@ -16,8 +16,9 @@ export function useMonthlyStockSummary() {
     async function fetchSummary() {
       try {
         setLoading(true);
-        const result = await Parse.Cloud.run<StockSummary>("getMonthlyStockSummary");
+        const result = await Parse.Cloud.run("getMonthlyStockSummary") as StockSummary;
         setSummary(result);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error("Erro ao buscar resumo de estoque:", err);
         setError(err.message);
