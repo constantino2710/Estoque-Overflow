@@ -34,20 +34,20 @@ export function LoginPage() {
       <div className='flex flex-col items-center gap-4'>
         <img src={logo} alt="Logo" className="w-full h-full object-cover" />
       <div className="bg-[var(--bg2)] p-6 rounded shadow-md w-[24rem] border border-[var(--border)]">
-        <h2 className="text-xl font-semibold mb-4">Login</h2>
+        <h2 className="text-xl font-semibold mb-4 text-[var(--text)]">Login</h2>
         <input
           type="text"
           placeholder="Usuário"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full mb-3 p-2 border rounded"
+          className="w-full mb-3 p-2 border rounded border-[var(--border)] text-[var(--text)]"
         />
         <input
           type="password"
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
+          className="w-full mb-3 p-2 border rounded border-[var(--border)] text-[var(--text)]"
         />
         <button
           onClick={handleLogin}
