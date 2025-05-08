@@ -52,12 +52,12 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
       className="fixed inset-0 bg-[var(--bgModal)] flex items-center justify-center z-50"
       onClick={handleOverlayClick}
     >
-      <div className="bg-[var(--gray-800)] rounded-xl p-8">
-        <h2 className="text-2xl text-white mb-4">Adicionar Produto</h2>
+      <div className="bg-[var(--bg2)] rounded-xl p-8">
+        <h2 className="text-2xl text-[var(--text)] mb-4">Adicionar Produto</h2>
 
         <div className="w-[40rem] p-6 flex flex-col gap-6 mt-6">
           <div className="flex items-center w-full gap-2">
-            <label htmlFor="name" className="whitespace-nowrap text-white">
+            <label htmlFor="name" className="whitespace-nowrap text-[var(--text)]">
               Nome do produto:
             </label>
             <input
@@ -65,13 +65,13 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="border rounded px-4 py-2 w-full bg-transparent text-white"
+              className="border rounded px-4 py-2 w-full bg-transparent text-[var(--text)]"
               placeholder="Digite o nome do produto"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <label htmlFor="stockLimit" className="whitespace-nowrap text-white">
+            <label htmlFor="stockLimit" className="whitespace-nowrap text-[var(--text)]">
               Limite de estoque:
             </label>
             <input
@@ -80,12 +80,12 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
               min={0}
               value={stockLimit}
               onChange={(e) => setStockLimit(Number(e.target.value))}
-              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
+              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-[var(--text)]"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <label htmlFor="quantity" className="whitespace-nowrap text-white">
+            <label htmlFor="quantity" className="whitespace-nowrap text-[var(--text)]">
               Quantidade:
             </label>
             <input
@@ -94,7 +94,7 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
               min={0}
               value={quantity}
               onChange={(e) => setQuantity(Number(e.target.value))}
-              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-white"
+              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-[var(--text)]"
             />
           </div>
 

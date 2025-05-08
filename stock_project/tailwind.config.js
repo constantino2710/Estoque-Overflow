@@ -18,6 +18,9 @@ module.exports = {
 		animation: {
 		  'fade-in': 'fadeIn 0.2s ease-out',
 		},
+		borderWidth: {
+			DEFAULT: '2px', // padrão para classes como "border"
+		  },
 	  },
 	},
 	plugins: [

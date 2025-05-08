@@ -38,28 +38,28 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
     <div className="flex flex-col gap-4 w-full h-full overflow-hidden">
       {/* Título e botão */}
       <div className="flex justify-between items-center shrink-0">
-        <h2 className="text-2xl font-bold text-white">Usuários Cadastrados</h2>
+        <h2 className="text-2xl font-bold text-[var(--text)]">Usuários Cadastrados</h2>
         <button
           onClick={onOpenModal}
-          className="bg-[var(--primary)] hover:bg-[var(--secondary)] text-white px-4 py-2 text-sm rounded-lg font-medium shadow transition duration-200 ease-in-out"
+          className="bg-[var(--primary)] hover:bg-[var(--secondary)] text-[var(--text)] px-4 py-2 text-sm rounded-lg font-medium shadow transition duration-200 ease-in-out cursor-pointer"
         >
-          Criar nova conta
+          Cadastrar novo usuario
         </button>
       </div>
 
       {/* Estado de carregamento */}
-      {loading && <p className="text-white">Carregando usuários...</p>}
+      {loading && <p className="text-[var(--text)]">Carregando usuários...</p>}
 
-      {/* Lista com altura dinâmica */}
+      {/* Lista com altura dinâmica e sem espaço branco no fim */}
       {!loading && (
-        <div className="flex flex-col gap-3 flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[var(--gray-700)]">
+        <div className="flex flex-col gap-3 overflow-y-auto grow min-h-0 pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[var(--bg4)] pb-[4px]">
           {users.length === 0 && (
             <p className="text-white">Nenhum usuário encontrado.</p>
           )}
           {users.map((u) => (
             <div
               key={u.id}
-              className="flex items-center gap-4 bg-[var(--gray-900)] p-4 rounded-lg border border-[var(--gray-200)] shadow-sm w-full"
+              className="flex items-center gap-4 bg-[var(--bg1)] p-4 rounded-lg border border-[var(--border)] shadow-sm w-full transition-all duration-300"
             >
               <div className="flex-shrink-0">
                 {u.profileImage ? (
@@ -69,7 +69,7 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
                     className="w-10 h-10 rounded-full object-cover border border-[var(--primary)]"
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-full bg-[var(--gray-600)] flex items-center justify-center text-sm text-white">
+                  <div className="w-10 h-10 rounded-full bg-[var(--bg4)] flex items-center justify-center text-sm text-white">
                     {u.username[0].toUpperCase()}
                   </div>
                 )}
@@ -77,13 +77,20 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
 
               <div className="flex flex-col text-sm text-white w-full">
                 <div className="flex justify-between w-full">
-                  <span className="font-semibold text-[var(--primary)] truncate max-w-[10rem]" title={u.username}>
+                  <span
+                    className="font-semibold text-[var(--primary)] truncate max-w-[10rem]"
+                    title={u.username}
+                  >
                     {u.username}
                   </span>
-                  <span>{u.isAdmin ? "Admin" : "Usuário"}</span>
+                  <span className="text-[var(--text)]">
+                    {u.isAdmin ? "Admin" : "Usuário"}
+                  </span>
                 </div>
                 <div className="flex justify-between w-full text-[var(--border)] text-xs pt-1">
-                  <span>Criado em: {new Date(u.createdAt).toLocaleDateString()}</span>
+                  <span>
+                    Criado em: {new Date(u.createdAt).toLocaleDateString()}
+                  </span>
                   <span>Criado por: {u.createdBy || "Desconhecido"}</span>
                 </div>
               </div>
@@ -94,4 +101,3 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
     </div>
   );
 }
-

@@ -30,10 +30,10 @@ export function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen bg-[var(--bg1)]">
       <div className='flex flex-col items-center gap-4'>
         <img src={logo} alt="Logo" className="w-full h-full object-cover" />
-      <div className="bg-[var(--gray-800)] p-6 rounded shadow-md w-[24rem]">
+      <div className="bg-[var(--bg2)] p-6 rounded shadow-md w-[24rem] border border-[var(--border)]">
         <h2 className="text-xl font-semibold mb-4">Login</h2>
         <input
           type="text"
@@ -51,7 +51,7 @@ export function LoginPage() {
         />
         <button
           onClick={handleLogin}
-          className="w-full bg-[var(--primary)] text-white py-2 rounded hover:bg-[var(--secondary)] transition cursor-pointer"
+          className="w-full bg-[var(--primary)] text-[var(--text)] py-2 rounded hover:bg-[var(--secondary)] transition cursor-pointer"
         >
           Entrar
         </button>

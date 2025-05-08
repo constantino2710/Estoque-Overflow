@@ -9,7 +9,7 @@ import Parse from "@/api/parseClient";
 import { Header } from "@/components/header";
 
 const MyIcon1 = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-icon lucide-package">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-icon lucide-package text-[var(--text)]">
     <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/>
     <path d="M12 22V12"/>
     <polyline points="3.29 7 12 12 20.71 7"/>
@@ -18,7 +18,7 @@ const MyIcon1 = (
 );
 
 const MyIcon2 = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-open-icon lucide-package-open">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-open-icon lucide-package-open text-[var(--text)]">
     <path d="M12 22v-9"/>
     <path d="M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z"/>
     <path d="M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13"/>
@@ -27,7 +27,7 @@ const MyIcon2 = (
 );
 
 const MyIcon3 = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-archive-icon lucide-archive">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-archive-icon lucide-archive text-[var(--text)]">
     <rect width="20" height="5" x="2" y="3" rx="1"/>
     <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/>
     <path d="M10 12h4"/>
@@ -59,7 +59,7 @@ export function DashBoard() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden bg-[var(--gray-900)]">
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-[var(--bg1)] transition-all duration-300">
 
       <Header title="Dashboard" />
     <div className="flex flex-col items-center w-full h-screen overflow-hidden p-4">
@@ -92,7 +92,10 @@ export function DashBoard() {
       {/* Área de conteúdo com scroll interno */}
       <div className="flex flex-row gap-4 justify-center items-stretch mt-4 w-full max-w-full h-full overflow-hidden">
         <div className="w-full h-full overflow-hidden">
+          <div className="flex flex-col gap-4 w-full h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)] transition-all duration-300">
+          <h2 className="text-2xl text-[var(--text)] font-bold">Estoque Atual</h2>
           <StockedItems />
+          </div>
         </div>
         <IfAdmin>
           <div className="w-[32rem] h-full overflow-hidden">

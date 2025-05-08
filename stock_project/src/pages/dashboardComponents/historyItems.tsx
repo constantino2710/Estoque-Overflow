@@ -35,19 +35,19 @@ export function HistoryItems() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full max-w-[32rem] h-full bg-[var(--gray-800)] rounded-xl p-4 border border-[var(--gray-200)] overflow-hidden">
-      <h2 className="text-xl font-bold text-white mb-2">Histórico de Atualizações</h2>
+    <div className="flex flex-col w-full max-w-[32rem] h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)] overflow-hidden transition-all duration-300">
+      <h2 className="text-xl font-bold text-[var(--text)] mb-2">Histórico de Atualizações</h2>
 
-      <div className="flex flex-col gap-2 overflow-y-auto pr-2 scrollbar-hide h-full">
+      <div className="flex flex-col gap-2 overflow-y-auto pr-2 scrollbar-hide h-full ">
         {loading ? (
-          <p className="text-white">Carregando...</p>
+          <p className="text-[var(--text)]">Carregando...</p>
         ) : updates.length === 0 ? (
-          <p className="text-white text-sm">Nenhuma atualização registrada.</p>
+          <p className="text-text-[var(--text)] text-sm">Nenhuma atualização registrada.</p>
         ) : (
           updates.map((u, index) => (
             <div
               key={index}
-              className="flex items-center gap-3 bg-[var(--gray-900)] text-sm text-white rounded-lg px-3 py-2 border border-[var(--gray-200)]"
+              className="transition-all duration-300 flex items-center gap-3 bg-[var(--bg1)] text-sm text-white rounded-lg px-3 py-2 border border-[var(--border)]"
             >
               {/* Avatar */}
               {u.user.profileImage ? (
@@ -57,14 +57,14 @@ export function HistoryItems() {
                   className="w-8 h-8 rounded-full object-cover border border-[var(--primary)]"
                 />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-[var(--gray-500)] flex items-center justify-center text-xs text-white font-bold">
+                <div className="w-8 h-8 rounded-full bg-[var(--text)] flex items-center justify-center text-xs text-white font-bold">
                   {u.user.username[0].toUpperCase()}
                 </div>
               )}
 
               {/* Texto */}
-              <div className="flex-1 flex flex-col justify-center">
-                <p className="text-[var(--gray-300)] leading-none">{u.productName}</p>
+              <div className="flex-1 flex flex-col justify-center ">
+                <p className="text-[var(--text)] leading-none">{u.productName}</p>
                 <p
                   className={`font-semibold leading-tight ${
                     u.action === "add"
@@ -74,7 +74,7 @@ export function HistoryItems() {
                 >
                   {u.action === "add" ? "Adicionado" : "Retirado"} {u.quantity} unidade(s)
                 </p>
-                <p className="text-[var(--gray-400)] text-xs leading-tight">
+                <p className="text-[var(--text)] text-xs leading-tight">
                   Por: {u.user.username} –{" "}
                   {new Date(u.createdAt).toLocaleDateString("pt-BR", {
                     day: "2-digit",

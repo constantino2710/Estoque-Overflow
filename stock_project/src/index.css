@@ -30,14 +30,20 @@
   --gray-800: #161B22; /*caixa secundária*/
   --gray-900: #0D1117; /*background-color*/
 
-  --border: #e1e1e6;
+  --bg1: #f1f1f1;
+  --bg2: #efefef;
+  --bg3: #c1c1c1; /* caixa secundária */
+  --bg4: #536176;
+  --border: #646464;   /* borda preto suave */
+  --text: #111111;     /* texto preto levemente suavizado */
+  --text2: #222222;    /* texto secundário, ainda escuro */
 
+  
   --primary: #1f6f66;
   --secondary: #399a8b;
   
+    --border-width: 2px;
 
-  --text: #a0a0a0;
-  --text2: #181818;
 
   --red: #cb1515;
   --red-100: #B33C3C; 
@@ -52,23 +58,30 @@
 ::-webkit-scrollbar-thumb {
   background-color: var(--primary);
   border-radius: 2px;
+
 }
 ::-webkit-scrollbar-track {
-  background-color: var(--gray-900);
+  background-color: var(--bg3);
 }
 
 }
 
+
+.dark {
+
+  --bg1: #0D1117;
+  --bg2: #161B22;
+  --bg3: #484850;
+  --bg4: #262c35;
+  --border: #434242;
+  --text: #a0a0a0;
+  --text2: #181818;
+}
 
 span {
   font-size: 1rem;
 }
 
-body {
-  background-color: var(--gray-900);
-  color: var(--gray-300);
-  -webkit-font-smoothing: antialiased;
-}
 
 body,
 input,
@@ -93,3 +106,6 @@ button {
   scrollbar-gutter: stable;
 }
 
+.border {
+  border-width: 2px;
+}

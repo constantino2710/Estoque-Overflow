@@ -9,10 +9,11 @@ export function SidebarToggle({ isOpen, toggle }: SidebarToggleProps) {
   return (
     <button onClick={toggle} className="p-2 ml-auto mr-2 cursor-pointer">
       {isOpen ? (
-        <LucideArrowLeftToLine size={24} />
+        <LucideArrowLeftToLine size={24} color="var(--text)" />
       ) : (
-        <LucideArrowRightFromLine size={24} />
+        <LucideArrowRightFromLine size={24} color="var(--text)" />
       )}
     </button>
   );
 }
+

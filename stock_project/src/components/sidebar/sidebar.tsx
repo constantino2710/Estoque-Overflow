@@ -29,14 +29,14 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
   }, []);
 
   const linkClass = (path: string) =>
-    `${pathname === path ? "text-[var(--secondary)]" : "text-[var(--border)]"} 
+    `${pathname === path ? "text-[var(--secondary)]" : "text-[var(--text)]"} 
      cursor-pointer text-base w-full rounded-lg h-[2.5rem] flex items-center justify-center gap-2 
      ${isOpen ? "justify-start px-4" : "justify-center"} 
-     hover:bg-[var(--gray-600)] transition`;
+     hover:bg-[var(--bg3)] transition`;
 
   return (
     <div
-      className={`h-screen bg-[var(--gray-800)] text-white flex flex-col justify-between border-r border-[var(--border)]
+      className={`h-screen bg-[var(--bg2)] text-white flex flex-col justify-between border-r-2 border-[var(--border)]
       ${isOpen ? "w-[15rem]" : "w-[4.5rem]"} transition-all duration-300`}
     >
       {/* Topo com toggle e logo */}
@@ -75,9 +75,9 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
       </div>
 
       {/* Rodapé com admin, nome e avatar */}
-      <div className="pb-4 px-4">
+      <div className="pb-4 px-4 ">
       <div
-  className={`bg-[var(--gray-900)] border border-[var(--border)] rounded-xl flex flex-col items-center ${
+  className={`bg-[var(--bg1)] border border-[var(--border)] rounded-xl flex flex-col items-center transition-all duration-300 ${
     isOpen ? "px-3 py-2" : "p-2"
   }`}
 >
@@ -103,7 +103,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
           />
         ) : (
           <div
-            className={`rounded-full bg-[var(--gray-500)] flex items-center justify-center text-sm text-white ${
+            className={`rounded-full bg-[var(--bg3)] flex items-center justify-center text-sm text-white ${
               isOpen ? "w-10 h-10" : "w-8 h-8"
             }`}
           >
@@ -113,12 +113,12 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
 
         {/* Nome + Admin (sidebar aberta) */}
         {isOpen && (
-          <div className="flex flex-col text-sm text-[var(--gray-300)] overflow-hidden">
+          <div className="flex flex-col text-sm text-[var(--text)] overflow-hidden">
             <p className="truncate max-w-[7rem]" title={userInfo.username}>
               {userInfo.username}
             </p>
             <IfAdmin>
-              <p className="text-xs text-[var(--gray-300)]">Admin</p>
+              <p className="text-xs text-[var(--text)]">Admin</p>
             </IfAdmin>
           </div>
         )}
@@ -127,7 +127,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
       {/* Admin abaixo da foto (sidebar fechada) */}
       {!isOpen && (
         <IfAdmin>
-          <p className="text-xs text-[var(--gray-300)] mt-2">Adm</p>
+          <p className="text-xs text-[var(--text)] mt-2">Adm</p>
         </IfAdmin>
       )}
     </>

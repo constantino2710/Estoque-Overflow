@@ -18,17 +18,17 @@ interface CardProps {
 	  ? 'border-2 border-red-500'
 	  : variant === 'alert'
 	  ? 'border-2 border-yellow-500'
-	  : 'border border-[var(--gray-200)]';
+	  : 'border border-[var(--border)]';
   
   
 	return (
-	  <div className={`rounded-2xl shadow-md p-4 bg-[var(--gray-800)] h-[10rem] w-full ${borderClasses}`}>
+	  <div className={`rounded-2xl shadow-md p-4 bg-[var(--bg2)] h-[10rem] w-full transition-all duration-300 ${borderClasses}`}>
 		<div className="flex justify-between items-start">
-		  <h2 className="text-[1rem] font-bold text-white">{title}</h2>
+		  <h2 className="text-[1rem] font-bold text-[var(--text)]">{title}</h2>
 		  <div>{icon}</div>
 		</div>
 		<div className='flex justify-center h-full mt-6'>
-		<p className="text-[3rem]">{content}</p>
+		<p className="text-[3rem] text-[var(--text)]">{content}</p>
 		</div>
 		{children}
 	  </div>

@@ -110,11 +110,11 @@ export function ProductList({ reloadKey }: ProductListProps) {
     }
   };
 
-  if (loading) return <p className="p-4">Carregando produtos...</p>;
+  if (loading) return <p className="p-4 text-[var(--text)]">Carregando produtos...</p>;
   if (error) return <p className="p-4 text-red-500">{error}</p>;
 
   return (
-    <div className="w-full h-full bg-[var(--gray-800)] flex flex-col rounded-xl overflow-hidden px-2 scrollbar-hide border border-[var(--gray-200)]">
+    <div className="w-full h-full bg-[var(--bg2)] flex flex-col rounded-xl overflow-hidden px-2 scrollbar-hide border border-[var(--border)] transition-all duration-300">
       {/* Lista com rolagem controlada */}
       <div className="flex-1 overflow-y-auto px-3 pt-3 pb-1 flex flex-col gap-3 scrollbar-hide">
         {products.map((prod) => {
@@ -124,7 +124,7 @@ export function ProductList({ reloadKey }: ProductListProps) {
           return (
             <div
               key={prod.id}
-              className="relative rounded-xl shadow-sm px-4 py-3 bg-[var(--gray-900)] hover:shadow-md transition cursor-default text-sm border border-[var(--gray-200)]"
+              className="relative rounded-xl shadow-sm px-4 py-3 bg-[var(--bg1)] hover:shadow-md transition cursor-default text-sm border border-[var(--border)] transition-all duration-300"
             >
               <div className="absolute top-2 right-2 flex gap-2">
                 <ActionMenuButton
@@ -157,18 +157,18 @@ export function ProductList({ reloadKey }: ProductListProps) {
                 </IfAdmin>
               </div>
 
-              <h3 className="text-[1.5rem] font-semibold text-white mb-1">{prod.name}</h3>
-              <p className="text-white">Quantidade: {prod.quantity}</p>
-              <p className="text-white">Limite de Estoque: {prod.stockLimit}</p>
+              <h3 className="text-[1.5rem] font-semibold text-[var(--text)] mb-1">{prod.name}</h3>
+              <p className="text-[var(--text)]">Quantidade: {prod.quantity}</p>
+              <p className="text-[var(--text)]">Limite de Estoque: {prod.stockLimit}</p>
 
               <div className="mt-2">
-                <div className="w-full bg-[var(--gray-700)] rounded-full h-2">
+                <div className="w-full bg-[var(--bg4)] rounded-full h-2">
                   <div
                     className={`h-2 rounded-full ${barColor} transition-all duration-300`}
                     style={{ width: `${Math.min(percentual, 100)}%` }}
                   />
                 </div>
-                <p className="text-xs text-gray-300 mt-1">
+                <p className="text-xs text-[var(--text)] mt-1">
                   {percentual}% ocupado
                 </p>
               </div>

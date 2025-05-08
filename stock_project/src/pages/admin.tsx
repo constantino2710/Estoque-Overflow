@@ -11,12 +11,12 @@ export function AdminPage() {
 
   return (
     <IfAdmin>
-      <div className="flex flex-col h-screen w-full bg-[var(--gray-900)] overflow-hidden">
+      <div className="flex flex-col h-screen w-full bg-[var(--bg1)] overflow-hidden transition-all duration-300">
         <Header title="Admin" />
 
         {/* Conteúdo abaixo do header */}
         <div className="flex flex-1 px-4 pb-4 pt-4 overflow-hidden">
-          <div className="flex-1 h-full w-full bg-[var(--gray-800)] p-6 rounded-xl shadow-md border border-[var(--gray-200)] flex flex-col overflow-hidden">
+          <div className="flex-1 h-full w-full bg-[var(--bg2)] pt-4 pl-4 pr-4 rounded-xl shadow-md border border-[var(--border)] flex flex-col overflow-hidden transition-all duration-300">
             {/* Lista com rolagem interna */}
             <UserAdminList onOpenModal={() => setIsModalOpen(true)} />
 

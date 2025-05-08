@@ -90,39 +90,39 @@ export function AdminCreateAccountModal({ isOpen, onClose }: ModalProps) {
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      <div className="bg-[var(--gray-800)] p-6 rounded-xl w-full max-w-md text-white shadow-xl">
-        <h2 className="text-xl font-bold mb-4 text-center">Criar Conta</h2>
+      <div className="bg-[var(--bg2)] p-6 rounded-xl w-full max-w-md text-white shadow-xl">
+        <h2 className="text-xl font-bold mb-4 text-center text-[var(--text)]">Criar Conta</h2>
 
         {message && (
           <p className="text-sm text-center mb-4 text-[var(--primary)]">{message}</p>
         )}
 
         <div className="mb-4">
-          <label htmlFor="username" className="block mb-1">Nome de usuário:</label>
+          <label htmlFor="username" className="block mb-1 text-[var(--text)]">Nome de usuário:</label>
           <input
             id="username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             maxLength={15}
-            className="w-full px-3 py-2 rounded border border-gray-600 bg-[#1e1e20] text-white"
+            className="w-full px-3 py-2 rounded border border-[var(--border)] bg-[var(--bg2)] text-[var(--text)]"
             placeholder="Digite no máximo 15 caracteres"
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="block mb-1">Senha:</label>
+          <label htmlFor="password" className="block mb-1 text-[var(--text)]">Senha:</label>
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 rounded border border-gray-600 bg-[#1e1e20] text-white"
+            className="w-full px-3 py-2 rounded border border-[var(--border)] bg-[var(--bg2)] text-[var(--text)]"
             placeholder="Digite a senha"
           />
         </div>
 
-        <div className="flex items-center gap-2 mb-6 text-sm">
+        <div className="flex items-center gap-2 mb-6 text-sm text-[var(--text)]">
           <input
             id="isAdmin"
             type="checkbox"

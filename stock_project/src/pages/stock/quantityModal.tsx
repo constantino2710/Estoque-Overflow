@@ -38,8 +38,8 @@ export function QuantityModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm transition">
-      <div className="bg-[var(--gray-800)] p-6 rounded-xl max-w-sm w-full mx-4 shadow-xl border border-[var(--gray-600)] animate-fade-in">
-        <h2 className="text-lg text-white font-semibold mb-4">
+      <div className="bg-[var(--bg2)] p-6 rounded-xl max-w-sm w-full mx-4 shadow-xl border border-[var(--border)] animate-fade-in">
+        <h2 className="text-lg text-[var(--text)] font-semibold mb-4">
           {type === "add" ? "Adicionar ao estoque" : "Remover do estoque"}
         </h2>
 
@@ -49,7 +49,7 @@ export function QuantityModal({
           min={1}
           value={value}
           onChange={(e) => setValue(parseInt(e.target.value) || 0)}
-          className="w-full mb-5 p-2 rounded bg-white text-black outline-none focus:ring-2 focus:ring-[var(--primary)]"
+          className="w-full mb-5 p-2 rounded bg-white text-[var(--text)] outline-none focus:ring-2 focus:ring-[var(--primary)]"
         />
 
         <div className="flex flex-wrap justify-end gap-2">

@@ -38,10 +38,10 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 p-6 bg-[var(--gray-800)] rounded-xl w-full max-w-sm">
+    <div className="flex flex-col items-center gap-6 p-6 bg-[var(--bg2)] rounded-xl w-full max-w-sm">
       {!preview ? (
         <>
-          <h2 className="text-xl text-white font-semibold">Upload de imagem</h2>
+          <h2 className="text-xl text-[var(--text)] font-semibold">Upload de imagem</h2>
 
           <div
             onDrop={handleDrop}
@@ -51,11 +51,11 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
             onClick={triggerFileInput}
             className={`flex flex-col items-center justify-center w-full h-40 border-2 ${
               isDragging
-                ? 'border-[var(--secondary)] bg-[var(--gray-600)]'
-                : 'border-dashed border-gray-400'
+                ? 'border-[var(--secondary)] bg-[var(--bg3)]'
+                : 'border-dashed border-[var(--text)]'
             } rounded-lg cursor-pointer transition`}
           >
-            <p className="text-white text-sm text-center px-4">
+            <p className="text-[var(--text)] text-sm text-center px-4">
               Arraste uma imagem aqui ou clique para selecionar
             </p>
           </div>

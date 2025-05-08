@@ -24,18 +24,18 @@ export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="text-white px-2 py-1 rounded hover:bg-[var(--gray-700)] cursor-pointer"
+        className="text-[var(--text)] px-2 py-1 rounded hover:bg-[var(--bg3)] cursor-pointer"
       >
         &#x22EE;
       </button>
       {open && (
-        <div className="absolute right-0 top-6 bg-[var(--gray-700)] shadow-md rounded p-2 z-50">
+        <div className="absolute right-0 top-6 bg-[var(--bg2)] shadow-md rounded p-2 z-50">
           <button
             onClick={() => {
               onSelect("add");
               setOpen(false);
             }}
-            className="block w-full text-left px-2 py-1 text-white hover:bg-[var(--gray-600)] cursor-pointer"
+            className="block w-full text-left px-2 py-1 text-[var(--text)] hover:bg-[var(--bg3)] cursor-pointer"
           >
             Adicionar
           </button>
@@ -44,7 +44,7 @@ export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
               onSelect("remove");
               setOpen(false);
             }}
-            className="block w-full text-left px-2 py-1 text-white hover:bg-[var(--gray-600)] cursor-pointer"
+            className="block w-full text-left px-2 py-1 text-[var(--text)] hover:bg-[var(--bg3)] cursor-pointer"
           >
             Remover
           </button>
