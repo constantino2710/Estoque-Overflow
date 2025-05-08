@@ -30,13 +30,17 @@
   --gray-800: #161B22; /*caixa secundária*/
   --gray-900: #0D1117; /*background-color*/
 
-  --bg1: #f1f1f1;
-  --bg2: #efefef;
-  --bg3: #c1c1c1; /* caixa secundária */
-  --bg4: #536176;
-  --border: #646464;   /* borda preto suave */
+  --bg1: #f1f1f1; /* background principal*/
+  --bg2: #efefef; /* background secundario*/
+  --bg3: #98b2b7; /* caixa secundária */
+  --bg4: #536176; /* background da scrollbar*/
+  --border: #1f6f66;   /* borda preto suave */
   --text: #111111;     /* texto preto levemente suavizado */
   --text2: #222222;    /* texto secundário, ainda escuro */
+  --bggreen: #1f6f66;   /* background da sidebar */
+  --bggreen2: #399a8b;/* background do card da sidebar*/
+  --active: #111111;  /* background dos textos ativos da sidebar*/
+  --unactive: #f1f1f1; /* background dos textos inativos da sidebar*/
 
   
   --primary: #1f6f66;
@@ -76,6 +80,10 @@
   --border: #434242;
   --text: #a0a0a0;
   --text2: #181818;
+  --bggreen: #161B22;
+  --bggreen2: #161b22;
+  --active: #1f6f66;
+  --unactive: #a0a0a0 ;
 }
 
 span {

@@ -24,7 +24,7 @@ export function StockPage() {
             <input
               type="text"
               placeholder="Pesquisar"
-              className="w-full border resize-none rounded-xl h-[2.5rem] px-4 pr-14 bg-transparent text-[var(--text)] placeholder-[var(--text)] outline-none"
+              className="w-full border border-[var(--border)] resize-none rounded-xl h-[2.5rem] px-4 pr-14 bg-transparent text-[var(--text)] placeholder-[var(--text)] outline-none"
             />
             <div className="absolute inset-y-0 right-2 flex items-center gap-2">
               {/* Filtro */}

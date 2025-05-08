@@ -29,14 +29,14 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
   }, []);
 
   const linkClass = (path: string) =>
-    `${pathname === path ? "text-[var(--secondary)]" : "text-[var(--text)]"} 
+    `${pathname === path ? "text-[var(--active)]" : "text-[var(--unactive)]"} 
      cursor-pointer text-base w-full rounded-lg h-[2.5rem] flex items-center justify-center gap-2 
      ${isOpen ? "justify-start px-4" : "justify-center"} 
      hover:bg-[var(--bg3)] transition`;
 
   return (
     <div
-      className={`h-screen bg-[var(--bg2)] text-white flex flex-col justify-between border-r-2 border-[var(--border)]
+      className={`h-screen bg-[var(--bggreen)] text-white flex flex-col justify-between border-r-2 border-[var(--border)]
       ${isOpen ? "w-[15rem]" : "w-[4.5rem]"} transition-all duration-300`}
     >
       {/* Topo com toggle e logo */}
@@ -77,7 +77,7 @@ export function Sidebar({ isOpen, toggle }: SidebarProps) {
       {/* Rodapé com admin, nome e avatar */}
       <div className="pb-4 px-4 ">
       <div
-  className={`bg-[var(--bg1)] border border-[var(--border)] rounded-xl flex flex-col items-center transition-all duration-300 ${
+  className={`bg-[var(--bggreen2)] border border-[var(--active)] rounded-xl flex flex-col items-center transition-all duration-300 ${
     isOpen ? "px-3 py-2" : "p-2"
   }`}
 >
