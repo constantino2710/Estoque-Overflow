@@ -49,7 +49,7 @@ export function QuantityModal({
           min={1}
           value={value}
           onChange={(e) => setValue(parseInt(e.target.value) || 0)}
-          className="w-full mb-5 p-2 rounded bg-white text-[var(--text)] outline-none focus:ring-2 focus:ring-[var(--primary)]"
+          className="w-full mb-5 p-2 rounded bg-[--bg1] text-[var(--text)] outline-none focus:ring-2 focus:ring-[var(--primary)]"
         />
 
         <div className="flex flex-wrap justify-end gap-2">

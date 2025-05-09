@@ -5,6 +5,7 @@ import { AdminCreateAccountModal } from "./adminComponents/adminCreateAccountMod
 import { IfAdmin } from "@/auth/ifAdmin";
 import { UserAdminList } from "./adminComponents/userList";
 import { Header } from "@/components/header";
+import ReportButton from "@/pages/adminComponents/reportGenerator";
 
 export function AdminPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,6 +20,7 @@ export function AdminPage() {
           <div className="flex-1 h-full w-full bg-[var(--bg2)] pt-4 pl-4 pr-4 rounded-xl shadow-md border border-[var(--border)] flex flex-col overflow-hidden transition-all duration-300">
             {/* Lista com rolagem interna */}
             <UserAdminList onOpenModal={() => setIsModalOpen(true)} />
+            <ReportButton />
 
             {/* Modal de criação */}
             <AdminCreateAccountModal

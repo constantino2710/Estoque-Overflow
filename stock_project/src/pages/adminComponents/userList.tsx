@@ -41,7 +41,7 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
         <h2 className="text-2xl font-bold text-[var(--text)]">Usuários Cadastrados</h2>
         <button
           onClick={onOpenModal}
-          className="bg-[var(--primary)] hover:bg-[var(--secondary)] text-[var(--text)] px-4 py-2 text-sm rounded-lg font-medium shadow transition duration-200 ease-in-out cursor-pointer"
+          className="bg-[var(--primary)] hover:bg-[var(--secondary)] text-white px-4 py-2 text-sm rounded-lg font-medium shadow transition duration-200 ease-in-out cursor-pointer"
         >
           Cadastrar novo usuario
         </button>

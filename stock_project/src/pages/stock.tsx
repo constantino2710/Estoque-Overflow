@@ -67,7 +67,7 @@ export function StockPage() {
               onClick={() => setIsModalOpen(true)}
               className="bg-[var(--primary)] rounded-xl h-[2.5rem] flex items-center justify-center px-4 hover:bg-[var(--secondary)] transition hover:-translate-y-1 hover:shadow-xl cursor-pointer"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='text-[var(--text)]'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='text-white'>
                 <path d="M16 16h6" />
                 <path d="M19 13v6" />
                 <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14" />
