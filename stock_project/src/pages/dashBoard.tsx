@@ -111,7 +111,7 @@ export function DashBoard() {
           />
             <Card
               title="Nº de produtos em alerta"
-              content={alerta.status === "ok" ? "Nenhum" : `${alerta.itens.length}`}
+              content={alerta.status === "ok" ? "0" : `${alerta.itens.length}`}
               icon={
                 <StatusIcon
                   danger={alerta.status === "danger"}
