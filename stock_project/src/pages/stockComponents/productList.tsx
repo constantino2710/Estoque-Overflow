@@ -15,6 +15,7 @@ type Product = {
 
 interface ProductListProps {
   reloadKey: number;
+  searchTerm: string;
 }
 
 function getBarColor(percentual: number) {
@@ -23,7 +24,7 @@ function getBarColor(percentual: number) {
   return "bg-[var(--primary)]";
 }
 
-export function ProductList({ reloadKey }: ProductListProps) {
+export function ProductList({ reloadKey, searchTerm }: ProductListProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,6 +56,10 @@ export function ProductList({ reloadKey }: ProductListProps) {
 
     fetchProducts();
   }, [reloadKey]);
+
+  const filteredProducts = products.filter((prod) =>
+    prod.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const openQuantityModal = (product: Product, type: "add" | "remove") => {
     setModalState({ isOpen: true, product, type });
@@ -89,9 +94,13 @@ export function ProductList({ reloadKey }: ProductListProps) {
           p.id === product.id ? { ...p, quantity: newQuantity } : p
         )
       );
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Erro ao atualizar produto:", err);
-      alert(err.message || "Erro ao atualizar produto.");
+      if (err instanceof Error) {
+        alert(err.message || "Erro ao atualizar produto.");
+      } else {
+        alert("Erro ao atualizar produto.");
+      }
     } finally {
       setModalState({ isOpen: false, product: null, type: "add" });
     }
@@ -116,7 +125,7 @@ export function ProductList({ reloadKey }: ProductListProps) {
   return (
     <div className="w-full h-full bg-[var(--bg2)] flex flex-col rounded-xl overflow-hidden px-2 scrollbar-hide border border-[var(--border)] transition-all duration-300">
       <div className="flex-1 overflow-y-auto px-3 pt-3 pb-1 flex flex-col gap-3 scrollbar-hide">
-        {products.map((prod) => {
+        {filteredProducts.map((prod) => {
           const percentual = Math.round((prod.quantity / prod.stockLimit) * 100);
           const barColor = getBarColor(percentual);
 
