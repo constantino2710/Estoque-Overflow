@@ -33,7 +33,7 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
       setName("");
       setQuantity(0);
       setStockLimit(1000);
-      onSuccess(); // atualiza a tela
+      onSuccess();
       onClose();
     } catch (error) {
       alert("Erro ao adicionar produto.");
@@ -49,15 +49,15 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
 
   return (
     <div
-      className="fixed inset-0 bg-[var(--bgModal)] flex items-center justify-center z-50"
+      className="fixed inset-0 bg-[var(--bgModal)] flex items-center justify-center z-50 px-4"
       onClick={handleOverlayClick}
     >
-      <div className="bg-[var(--bg2)] rounded-xl p-8">
+      <div className="bg-[var(--bg2)] rounded-xl p-6 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
         <h2 className="text-2xl text-[var(--text)] mb-4">Adicionar Produto</h2>
 
-        <div className="w-[40rem] p-6 flex flex-col gap-6 mt-6">
-          <div className="flex items-center w-full gap-2">
-            <label htmlFor="name" className="whitespace-nowrap text-[var(--text)]">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+            <label htmlFor="name" className="text-[var(--text)] min-w-[10rem]">
               Nome do produto:
             </label>
             <input
@@ -70,8 +70,8 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
             />
           </div>
 
-          <div className="flex items-center gap-2">
-            <label htmlFor="stockLimit" className="whitespace-nowrap text-[var(--text)]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+            <label htmlFor="stockLimit" className="text-[var(--text)] min-w-[10rem]">
               Limite de estoque:
             </label>
             <input
@@ -80,12 +80,12 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
               min={0}
               value={stockLimit}
               onChange={(e) => setStockLimit(Number(e.target.value))}
-              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-[var(--text)]"
+              className="border rounded px-4 py-2 w-full sm:w-[10rem] bg-transparent text-[var(--text)]"
             />
           </div>
 
-          <div className="flex items-center gap-2">
-            <label htmlFor="quantity" className="whitespace-nowrap text-[var(--text)]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+            <label htmlFor="quantity" className="text-[var(--text)] min-w-[10rem]">
               Quantidade:
             </label>
             <input
@@ -94,20 +94,20 @@ export function ModalCreate({ isOpen, onClose, onSuccess }: ModalProps) {
               min={0}
               value={quantity}
               onChange={(e) => setQuantity(Number(e.target.value))}
-              className="border rounded px-4 py-2 w-[10rem] bg-transparent text-[var(--text)]"
+              className="border rounded px-4 py-2 w-full sm:w-[10rem] bg-transparent text-[var(--text)]"
             />
           </div>
 
-          <div className="flex justify-end mt-auto gap-2">
+          <div className="flex justify-end gap-2 mt-2">
             <button
               onClick={onClose}
-              className="cursor-pointer bg-red-500 hover:bg-red-600 transition-colors w-[8rem] h-[3rem] rounded-lg text-white"
+              className="bg-red-500 hover:bg-red-600 transition-colors w-full sm:w-[8rem] h-[3rem] rounded-lg text-white"
             >
               Cancelar
             </button>
             <button
               onClick={handleSubmit}
-              className="cursor-pointer bg-[var(--primary)] hover:bg-[var(--secondary)] transition-colors w-[11rem] h-[3rem] rounded-lg text-white"
+              className="bg-[var(--primary)] hover:bg-[var(--secondary)] transition-colors w-full sm:w-[11rem] h-[3rem] rounded-lg text-white"
             >
               Adicionar
             </button>

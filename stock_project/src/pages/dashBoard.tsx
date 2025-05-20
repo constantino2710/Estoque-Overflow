@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -10,7 +11,7 @@ import { Header } from "@/components/header";
 import { StatusIcon } from "./dashboardComponents/statusIcon";
 
 const MyIcon1 = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-icon lucide-package text-[var(--text)]">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package text-[var(--text)]">
     <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/>
     <path d="M12 22V12"/>
     <polyline points="3.29 7 12 12 20.71 7"/>
@@ -28,117 +29,77 @@ const MyIcon2 = (
 );
 
 const MyIcon3 = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-archive-icon lucide-archive text-[var(--text)]">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-archive text-[var(--text)]">
     <rect width="20" height="5" x="2" y="3" rx="1"/>
     <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/>
     <path d="M10 12h4"/>
   </svg>
 );
 
+interface Summary {
+  totalEntradas: number;
+  totalSaidas: number;
+  mesNome?: string;
+}
+
+interface Alerta {
+  status: "ok" | "alert" | "danger";
+  itens: string[];
+}
 
 export function DashBoard() {
   const [total, setTotal] = useState<number | null>(null);
-  const [summary, setSummary] = useState<{ totalEntradas: number; totalSaidas: number; mesNome?: string } | null>(null);
-  const [alerta, setAlerta] = useState<{ status: "ok" | "alert" | "danger", itens: string[] }>({ status: "ok", itens: [] });
+  const [summary, setSummary] = useState<Summary | null>(null);
+  const [alerta, setAlerta] = useState<Alerta>({ status: "ok", itens: [] });
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchAll() {
       try {
-        const result = await Parse.Cloud.run("getMonthlyStockReport");
-        setSummary(result?.[0] || { totalEntradas: 0, totalSaidas: 0 });
-      } catch (error) {
-        console.error("Erro ao buscar resumo de estoque por produtos:", error);
-      }
-    }
+        const [resumo, totalQtd, alertas] = await Promise.all([
+          Parse.Cloud.run("getMonthlyStockReport"),
+          Parse.Cloud.run("getTotalQuantidade"),
+          Parse.Cloud.run("getProdutosEmAlerta"),
+        ]);
 
-    fetchData();
-  }, []);
+        setSummary(resumo?.[0] || { totalEntradas: 0, totalSaidas: 0 });
+        setTotal(totalQtd);
 
-  useEffect(() => {
-    async function fetchTotal() {
-      try {
-        const total = await Parse.Cloud.run("getTotalQuantidade");
-        setTotal(total);
-      } catch (error) {
-        console.error("Erro ao buscar total de estoque:", error);
-      }
-    }
-
-    fetchTotal();
-  }, []);
-
-  useEffect(() => {
-    async function fetchAlerta() {
-      try {
-        const result = await Parse.Cloud.run("getProdutosEmAlerta");
-        const danger = result.filter((p: { status: string; name: string }) => p.status === "danger");
-        const alert = result.filter((p: { status: string; }) => p.status === "alert");
+        const danger = alertas.filter((p: any) => p.status === "danger");
+        const alert = alertas.filter((p: any) => p.status === "alert");
 
         if (danger.length > 0) {
-            setAlerta({ status: "danger", itens: danger.map((p: { name: string }) => p.name) });
+          setAlerta({ status: "danger", itens: danger.map((p: any) => p.name) });
         } else if (alert.length > 0) {
-            setAlerta({ status: "alert", itens: alert.map((p: { name: string }) => p.name) });
-        } else {
-          setAlerta({ status: "ok", itens: [] });
+          setAlerta({ status: "alert", itens: alert.map((p: any) => p.name) });
         }
-      } catch (e) {
-        console.error("Erro ao buscar produtos em alerta:", e);
+      } catch (error) {
+        console.error("Erro ao buscar dados do dashboard:", error);
       }
     }
 
-    fetchAlerta();
+    fetchAll();
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden bg-[var(--bg1)] transition-all duration-300">
+    <div className="flex flex-col min-h-screen lg:h-screen w-full bg-[var(--bg1)] transition-all duration-300">
       <Header title="Dashboard" />
-      <div className="flex flex-col items-center w-full h-screen overflow-hidden p-4">
-        <div className="flex flex-row gap-4 justify-center items-center w-full h-[10rem]">
-          <Card
-            title="Nº total de itens em estoque"
-            content={total !== null ? `${total}` : "Carregando..."}
-            icon={MyIcon1}
-          />
-          <Card
-            title={`Nº de saída de produtos (${summary?.mesNome || "mês"})`}
-            content={summary ? `${summary.totalSaidas}` : "Carregando..."}
-            icon={MyIcon2}
-          />
-          <Card
-            title={`Nº de entrada de produtos (${summary?.mesNome || "mês"})`}
-            content={summary ? `${summary.totalEntradas}` : "Carregando..."}
-            icon={MyIcon3}
-          />
-            <Card
-              title="Nº de produtos em alerta"
-              content={alerta.status === "ok" ? "0" : `${alerta.itens.length}`}
-              icon={
-                <StatusIcon
-                  danger={alerta.status === "danger"}
-                  alert={alerta.status === "alert"}
-                />
-              }
-              variant={
-                alerta.status === "danger"
-                  ? "danger"
-                  : alerta.status === "alert"
-                  ? "alert"
-                  : "default"
-              }
-              tooltip={alerta.itens.length > 0 ? alerta.itens.join(", ") : undefined}
-            />
-
+      <div className="flex flex-col items-center w-full flex-1 overflow-y-auto p-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-4">
+          <Card title="Nº total de itens em estoque" content={total !== null ? `${total}` : "Carregando..."} icon={MyIcon1} />
+          <Card title={`Nº de saída de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalSaidas}` : "Carregando..."} icon={MyIcon2} />
+          <Card title={`Nº de entrada de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalEntradas}` : "Carregando..."} icon={MyIcon3} />
+          <Card title="Nº de produtos em alerta" content={alerta.status === "ok" ? "0" : `${alerta.itens.length}`} icon={<StatusIcon danger={alerta.status === "danger"} alert={alerta.status === "alert"} />} variant={alerta.status === "danger" ? "danger" : alerta.status === "alert" ? "alert" : "default"} tooltip={alerta.itens.length ? alerta.itens.join(", ") : undefined} />
         </div>
 
-        <div className="flex flex-row gap-4 justify-center items-stretch mt-4 w-full max-w-full h-full overflow-hidden">
+        <div className="flex flex-col lg:flex-row gap-4 mt-4 w-full h-full overflow-hidden">
           <div className="w-full h-full overflow-hidden">
-            <div className="flex flex-col gap-4 w-full h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)] transition-all duration-300">
+            <div className="flex flex-col gap-4 w-full h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)]">
               <h2 className="text-2xl text-[var(--text)] font-bold">Estoque Atual</h2>
               <StockedItems />
             </div>
           </div>
           <IfAdmin>
-            <div className="w-[32rem] h-full overflow-hidden">
+            <div className="w-full lg:w-[32rem] h-full overflow-hidden">
               <HistoryItems />
             </div>
           </IfAdmin>

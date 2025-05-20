@@ -35,21 +35,20 @@ export function HistoryItems() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full max-w-[32rem] h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)] overflow-hidden transition-all duration-300">
+    <div className="flex flex-col w-full lg:max-w-[32rem] max-h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)] overflow-hidden transition-all duration-300">
       <h2 className="text-xl font-bold text-[var(--text)] mb-2">Histórico de Atualizações</h2>
 
-      <div className="flex flex-col gap-2 overflow-y-auto pr-2 scrollbar-hide h-full ">
+      <div className="flex flex-col gap-2 overflow-y-auto pr-2 scrollbar-hide max-h-[calc(100vh-12rem)]">
         {loading ? (
           <p className="text-[var(--text)]">Carregando...</p>
         ) : updates.length === 0 ? (
-          <p className="text-text-[var(--text)] text-sm">Nenhuma atualização registrada.</p>
+          <p className="text-[var(--text)] text-sm">Nenhuma atualização registrada.</p>
         ) : (
           updates.map((u, index) => (
             <div
               key={index}
               className="transition-all duration-300 flex items-center gap-3 bg-[var(--bg1)] text-sm text-white rounded-lg px-3 py-2 border border-[var(--border)]"
             >
-              {/* Avatar */}
               {u.user.profileImage ? (
                 <img
                   src={u.user.profileImage}
@@ -62,14 +61,11 @@ export function HistoryItems() {
                 </div>
               )}
 
-              {/* Texto */}
-              <div className="flex-1 flex flex-col justify-center ">
+              <div className="flex-1 flex flex-col justify-center">
                 <p className="text-[var(--text)] leading-none">{u.productName}</p>
                 <p
                   className={`font-semibold leading-tight ${
-                    u.action === "in"
-                      ? "text-[var(--primary)]"
-                      : "text-[var(--red)]"
+                    u.action === "in" ? "text-[var(--primary)]" : "text-[var(--red)]"
                   }`}
                 >
                   {u.action === "out" ? "Retirado" : "Adicionado"} {u.quantity} unidade(s)
