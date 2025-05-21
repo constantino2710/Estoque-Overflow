@@ -84,7 +84,7 @@ export function DashBoard() {
     <div className="flex flex-col min-h-screen lg:h-screen w-full bg-[var(--bg1)] transition-all duration-300">
       <Header title="Dashboard" />
       <div className="flex flex-col items-center w-full flex-1 overflow-y-auto p-4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           <Card title="Nº total de itens em estoque" content={total !== null ? `${total}` : "Carregando..."} icon={MyIcon1} />
           <Card title={`Nº de saída de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalSaidas}` : "Carregando..."} icon={MyIcon2} />
           <Card title={`Nº de entrada de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalEntradas}` : "Carregando..."} icon={MyIcon3} />
