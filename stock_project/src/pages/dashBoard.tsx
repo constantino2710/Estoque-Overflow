@@ -20,7 +20,7 @@ const MyIcon1 = (
 );
 
 const MyIcon2 = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-open-icon lucide-package-open text-[var(--text)]">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-package-open text-[var(--text)]">
     <path d="M12 22v-9"/>
     <path d="M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0  0 1 0-3.36z"/>
     <path d="M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13"/>
@@ -42,15 +42,11 @@ interface Summary {
   mesNome?: string;
 }
 
-interface Alerta {
-  status: "ok" | "alert" | "danger";
-  itens: string[];
-}
-
 export function DashBoard() {
   const [total, setTotal] = useState<number | null>(null);
   const [summary, setSummary] = useState<Summary | null>(null);
-  const [alerta, setAlerta] = useState<Alerta>({ status: "ok", itens: [] });
+  const [produtosAlerta, setProdutosAlerta] = useState<string[]>([]);
+  const [produtosPerigo, setProdutosPerigo] = useState<string[]>([]);
 
   useEffect(() => {
     async function fetchAll() {
@@ -64,14 +60,11 @@ export function DashBoard() {
         setSummary(resumo?.[0] || { totalEntradas: 0, totalSaidas: 0 });
         setTotal(totalQtd);
 
-        const danger = alertas.filter((p: any) => p.status === "danger");
-        const alert = alertas.filter((p: any) => p.status === "alert");
+        const danger = alertas.filter((p: any) => p.status === "danger").map((p: any) => p.name);
+        const alert = alertas.filter((p: any) => p.status === "alert").map((p: any) => p.name);
 
-        if (danger.length > 0) {
-          setAlerta({ status: "danger", itens: danger.map((p: any) => p.name) });
-        } else if (alert.length > 0) {
-          setAlerta({ status: "alert", itens: alert.map((p: any) => p.name) });
-        }
+        setProdutosPerigo(danger);
+        setProdutosAlerta(alert);
       } catch (error) {
         console.error("Erro ao buscar dados do dashboard:", error);
       }
@@ -84,16 +77,30 @@ export function DashBoard() {
     <div className="flex flex-col min-h-screen lg:h-screen w-full bg-[var(--bg1)] transition-all duration-300">
       <Header title="Dashboard" />
       <div className="flex flex-col items-center w-full flex-1 overflow-y-auto p-4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 w-full">
           <Card title="Nº total de itens em estoque" content={total !== null ? `${total}` : "Carregando..."} icon={MyIcon1} />
           <Card title={`Nº de saída de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalSaidas}` : "Carregando..."} icon={MyIcon2} />
           <Card title={`Nº de entrada de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalEntradas}` : "Carregando..."} icon={MyIcon3} />
-          <Card title="Nº de produtos em alerta" content={alerta.status === "ok" ? "0" : `${alerta.itens.length}`} icon={<StatusIcon danger={alerta.status === "danger"} alert={alerta.status === "alert"} />} variant={alerta.status === "danger" ? "danger" : alerta.status === "alert" ? "alert" : "default"} tooltip={alerta.itens.length ? alerta.itens.join(", ") : undefined} />
+          <Card
+            title="Produtos em alerta"
+            content={produtosAlerta.length.toString()}
+            icon={<StatusIcon danger={false} alert={produtosAlerta.length > 0} />}
+            variant={produtosAlerta.length > 0 ? "alert" : "default"}
+            tooltip={produtosAlerta.length ? produtosAlerta.join(", ") : undefined}
+          />
+
+          <Card
+            title="Produtos em perigo"
+            content={produtosPerigo.length.toString()}
+            icon={<StatusIcon danger={produtosPerigo.length > 0} alert={false} />}
+            variant={produtosPerigo.length > 0 ? "danger" : "default"}
+            tooltip={produtosPerigo.length ? produtosPerigo.join(", ") : undefined}
+          />
         </div>
 
         <div className="flex flex-col lg:flex-row gap-4 mt-4 w-full h-full overflow-hidden">
           <div className="w-full h-full overflow-hidden">
-            <div className="flex flex-col gap-4 w-full h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)]">
+            <div className="flex flex-col gap-4 w-full h-full bg-[var(--bg2)] rounded-xl p-4 border border-[var(--border)] transition-all duration-300">
               <h2 className="text-2xl text-[var(--text)] font-bold">Estoque Atual</h2>
               <StockedItems />
             </div>

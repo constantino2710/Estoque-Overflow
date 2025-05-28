@@ -11,8 +11,8 @@ interface ProdutoComPercentual {
 }
 
 function getBarColor(percentual: number) {
-  if (percentual <= 10) return "bg-[var(--red)]";
-  if (percentual <= 30) return "bg-[var(--alert)]";
+  if (percentual <= 9) return "bg-[var(--red)]";
+  if (percentual <= 29) return "bg-[var(--alert)]";
   return "bg-[var(--primary)]";
 }
 
@@ -47,7 +47,7 @@ export function StockedItems() {
         dados.map((item) => (
           <div
             key={item.name}
-            className="flex flex-col sm:flex-row sm:items-center gap-2 text-white w-full min-w-0"
+            className="flex flex-col sm:flex-row sm:items-center gap-2 text-white w-full min-w-0 "
           >
             <div className="flex-[2] truncate font-medium text-[var(--text)]">{item.name}</div>
             <div className="flex-[1] text-sm whitespace-nowrap text-right text-[var(--text)]">

@@ -19,8 +19,8 @@ interface ProductListProps {
 }
 
 function getBarColor(percentual: number) {
-  if (percentual <= 10) return "bg-[var(--red)]";
-  if (percentual <= 30) return "bg-[var(--alert)]";
+  if (percentual <= 9) return "bg-[var(--red)]";
+  if (percentual <= 29) return "bg-[var(--alert)]";
   return "bg-[var(--primary)]";
 }
 
