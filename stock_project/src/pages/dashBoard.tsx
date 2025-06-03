@@ -40,6 +40,16 @@ interface Summary {
   totalEntradas: number;
   totalSaidas: number;
   mesNome?: string;
+  ano?: number;
+}
+
+function monthNumberFromName(name: string) {
+  const meses = [
+    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+  ];
+  const lowerName = name.toLowerCase();
+  return meses.indexOf(lowerName) + 1;
 }
 
 export function DashBoard() {
@@ -47,17 +57,28 @@ export function DashBoard() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [produtosAlerta, setProdutosAlerta] = useState<string[]>([]);
   const [produtosPerigo, setProdutosPerigo] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchAll() {
       try {
+        setLoading(true);
         const [resumo, totalQtd, alertas] = await Promise.all([
           Parse.Cloud.run("getMonthlyStockReport"),
           Parse.Cloud.run("getTotalQuantidade"),
           Parse.Cloud.run("getProdutosEmAlerta"),
         ]);
 
-        setSummary(resumo?.[0] || { totalEntradas: 0, totalSaidas: 0 });
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1;
+
+        const resumoAtual = resumo.find((r: any) => {
+          const mes = monthNumberFromName(r.mesNome || "");
+          return r.ano === currentYear && mes === currentMonth;
+        });
+
+        setSummary(resumoAtual || { totalEntradas: 0, totalSaidas: 0 });
         setTotal(totalQtd);
 
         const danger = alertas.filter((p: any) => p.status === "danger").map((p: any) => p.name);
@@ -67,20 +88,45 @@ export function DashBoard() {
         setProdutosAlerta(alert);
       } catch (error) {
         console.error("Erro ao buscar dados do dashboard:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchAll();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-[var(--bg1)]">
+        <span className="text-sm text-[var(--text)]">Carregando...</span>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen lg:h-screen w-full bg-[var(--bg1)] transition-all duration-300">
       <Header title="Dashboard" />
       <div className="flex flex-col items-center w-full flex-1 overflow-y-auto p-4">
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 w-full">
-          <Card title="Nº total de itens em estoque" content={total !== null ? `${total}` : "Carregando..."} icon={MyIcon1} />
-          <Card title={`Nº de saída de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalSaidas}` : "Carregando..."} icon={MyIcon2} />
-          <Card title={`Nº de entrada de produtos (${summary?.mesNome || "mês"})`} content={summary ? `${summary.totalEntradas}` : "Carregando..."} icon={MyIcon3} />
+          <div className="col-span-2 sm:col-span-1">
+            <Card
+              title="Nº total de itens em estoque"
+              content={total !== null ? `${total}` : "0"}
+              icon={MyIcon1}
+            />
+          </div>
+
+          <Card
+            title={`Nº de saída de produtos (${summary?.mesNome || "mês"})`}
+            content={summary ? `${summary.totalSaidas}` : "0"}
+            icon={MyIcon2}
+          />
+          <Card
+            title={`Nº de entrada de produtos (${summary?.mesNome || "mês"})`}
+            content={summary ? `${summary.totalEntradas}` : "0"}
+            icon={MyIcon3}
+          />
           <Card
             title="Produtos em alerta"
             content={produtosAlerta.length.toString()}
@@ -88,7 +134,6 @@ export function DashBoard() {
             variant={produtosAlerta.length > 0 ? "alert" : "default"}
             tooltip={produtosAlerta.length ? produtosAlerta.join(", ") : undefined}
           />
-
           <Card
             title="Produtos em perigo"
             content={produtosPerigo.length.toString()}
