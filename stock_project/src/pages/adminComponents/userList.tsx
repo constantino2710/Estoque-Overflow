@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Parse from "@/api/parseClient";
+import Parse from "@/api/parseClient"; // Seu cliente Parse configurado
+import { DeleteUserButton } from "@/components/deleteUserButton"; // Botão de deletar
 
 interface User {
   id: string;
@@ -20,23 +21,29 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const result = await Parse.Cloud.run("getAllUsers");
-        setUsers(result);
-      } catch (err) {
-        console.error("Erro ao buscar usuários:", err);
-      } finally {
-        setLoading(false);
-      }
+  async function fetchUsers() {
+    try {
+      setLoading(true);
+      const result = await Parse.Cloud.run("getAllUsers");
+      setUsers(result);
+    } catch (err) {
+      console.error("Erro ao buscar usuários:", err);
+    } finally {
+      setLoading(false);
     }
+  }
+
+  useEffect(() => {
     fetchUsers();
   }, []);
 
+  async function handleDeleteSuccess() {
+    await fetchUsers(); // Atualiza lista depois de deletar
+  }
+
   return (
     <div className="flex flex-col gap-4 w-full h-full overflow-hidden">
-      {/* Título e botão */}
+      {/* Título e botão de cadastro */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 shrink-0">
         <h2 className="text-2xl font-bold text-[var(--text)]">Usuários Cadastrados</h2>
         <button
@@ -57,7 +64,7 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
           {users.map((u) => (
             <div
               key={u.id}
-              className="flex items-center gap-4 bg-[var(--bg1)] p-4 rounded-lg border border-[var(--border)] shadow-sm w-full transition-all duration-300"
+              className="relative flex items-center gap-4 bg-[var(--bg1)] p-4 rounded-lg border border-[var(--border)] shadow-sm w-full transition-all duration-300"
             >
               <div className="flex-shrink-0">
                 {u.profileImage ? (
@@ -90,6 +97,11 @@ export function UserAdminList({ onOpenModal }: UserAdminListProps) {
                   <span className="truncate">Criado em: {new Date(u.createdAt).toLocaleDateString()}</span>
                   <span className="truncate">Criado por: {u.createdBy || "Desconhecido"}</span>
                 </div>
+              </div>
+
+              {/* Botão de deletar */}
+              <div className="absolute top-2 right-2">
+                <DeleteUserButton userId={u.id} onSuccess={handleDeleteSuccess} />
               </div>
             </div>
           ))}

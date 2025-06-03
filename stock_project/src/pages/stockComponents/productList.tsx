@@ -141,7 +141,7 @@ export function ProductList({ reloadKey, searchTerm }: ProductListProps) {
                 <IfAdmin>
                   <button
                     onClick={() => handleRemoveProduct(prod.id)}
-                    className="text-red-400 hover:text-red-600 transition cursor-pointer"
+                    className="text-[var(--red-100)] hover:text-[var(--red)] transition cursor-pointer"
                     title="Remover produto"
                   >
                     <svg

@@ -37,7 +37,7 @@ export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
             }}
             className="block w-full text-left px-2 py-1 text-[var(--text)] hover:bg-[var(--bg3)] cursor-pointer"
           >
-            Adicionar
+            Adicionar quantidade
           </button>
           <button
             onClick={() => {
@@ -46,7 +46,7 @@ export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
             }}
             className="block w-full text-left px-2 py-1 text-[var(--text)] hover:bg-[var(--bg3)] cursor-pointer"
           >
-            Remover
+            Remover quantidade
           </button>
         </div>
       )}
