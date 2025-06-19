@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-
 import { useEffect, useState } from "react";
 import Parse from "parse/dist/parse.min.js";
 import { Card } from "@/components/card";
@@ -107,9 +105,10 @@ export function DashBoard() {
   return (
     <div className="flex flex-col min-h-screen lg:h-screen w-full bg-[var(--bg1)] transition-all duration-300">
       <Header title="Dashboard" />
+
       <div className="flex flex-col items-center w-full flex-1 overflow-y-auto p-4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 w-full">
-          <div className="col-span-2 sm:col-span-1">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 w-full min-w-0">
+          <div className="col-span-full lg:col-span-1">
             <Card
               title="Nº total de itens em estoque"
               content={total !== null ? `${total}` : "0"}
@@ -150,6 +149,7 @@ export function DashBoard() {
               <StockedItems />
             </div>
           </div>
+
           <IfAdmin>
             <div className="w-full lg:w-[32rem] h-full overflow-hidden">
               <HistoryItems />

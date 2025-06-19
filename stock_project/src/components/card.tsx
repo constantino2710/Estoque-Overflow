@@ -25,7 +25,7 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <div
-      className={`rounded-2xl shadow-md p-4 bg-[var(--bg2)] w-full transition-all duration-300 ${borderClasses}`}
+      className={`rounded-2xl shadow-md p-4 h-full bg-[var(--bg2)] w-full transition-all duration-300 ${borderClasses}`}
     >
       <div className="flex justify-between items-start">
         <h2 className="text-[1rem] font-bold text-[var(--text)]">{title}</h2>
