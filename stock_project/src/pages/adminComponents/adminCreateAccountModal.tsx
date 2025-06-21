@@ -132,7 +132,15 @@ export function AdminCreateAccountModal({ isOpen, onClose }: ModalProps) {
           <label htmlFor="isAdmin">É administrador?</label>
         </div>
 
-        <ImageUpload onUpload={(base64) => setImageBase64(base64)} />
+        <ImageUpload
+          onUpload={(file: File) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              setImageBase64(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+          }}
+        />
 
         <div className="flex justify-between gap-2 mt-6">
           <button

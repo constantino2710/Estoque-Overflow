@@ -1,12 +1,12 @@
-"use client";
-
+import { IfAdmin } from "@/auth/ifAdmin";
 import { useState, useRef, useEffect } from "react";
 
 interface ActionMenuButtonProps {
   onSelect: (action: "add" | "remove") => void;
+  onEdit: () => void;
 }
 
-export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
+export function ActionMenuButton({ onSelect, onEdit }: ActionMenuButtonProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -29,7 +29,7 @@ export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
         &#x22EE;
       </button>
       {open && (
-        <div className="absolute right-0 top-6 bg-[var(--bg2)] shadow-md rounded p-2 z-50">
+        <div className="absolute right-0 top-6 bg-[var(--bg2)] shadow-md rounded p-2 z-50 min-w-[120px]">
           <button
             onClick={() => {
               onSelect("add");
@@ -37,7 +37,7 @@ export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
             }}
             className="block w-full text-left px-2 py-1 text-[var(--text)] hover:bg-[var(--bg3)] cursor-pointer"
           >
-            Adicionar quantidade
+            Adicionar
           </button>
           <button
             onClick={() => {
@@ -46,8 +46,19 @@ export function ActionMenuButton({ onSelect }: ActionMenuButtonProps) {
             }}
             className="block w-full text-left px-2 py-1 text-[var(--text)] hover:bg-[var(--bg3)] cursor-pointer"
           >
-            Remover quantidade
+            Remover
           </button>
+          <IfAdmin>
+          <button
+            onClick={() => {
+              onEdit();
+              setOpen(false);
+            }}
+            className="block w-full text-left px-2 py-1 text-[var(--text)] hover:bg-[var(--bg3)] cursor-pointer"
+          >
+            Editar
+          </button>
+          </IfAdmin>
         </div>
       )}
     </div>

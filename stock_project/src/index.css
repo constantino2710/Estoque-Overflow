@@ -33,7 +33,7 @@
   --bg1: #f4f4f4; /* background principal*/
   --bg2: #efefef; /* background secundario*/
   --bg3: #98b2b7; /* caixa secundária */
-  --bg4: #536176; /* background da scrollbar*/
+  --bg4: #999999; /* background da scrollbar*/
   --border: #434242;   /* borda preto suave */
   --text: #111111;     /* texto preto levemente suavizado */
   --text2: #222222;    /* texto secundário, ainda escuro */
@@ -76,7 +76,7 @@
   --bg1: #0D1117;
   --bg2: #161B22;
   --bg3: #484850;
-  --bg4: #262c35;
+  --bg4: #999999;
   --border: #434242;
   --text: #a0a0a0;
   --text2: #181818;

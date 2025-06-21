@@ -1,7 +1,7 @@
-import { useState, useRef} from 'react';
+import { useState, useRef } from "react";
 
 interface ImageUploadProps {
-  onUpload: (url: string) => void;
+  onUpload: (file: File) => void;
 }
 
 export function ImageUpload({ onUpload }: ImageUploadProps) {
@@ -10,12 +10,12 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (file: File) => {
-    if (file && file.type.startsWith('image/')) {
+    if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result as string;
         setPreview(result);
-        onUpload(result); // envia para o formulário pai
+        onUpload(file); // envia o File real para o pai
       };
       reader.readAsDataURL(file);
     }
@@ -42,7 +42,6 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
       {!preview ? (
         <>
           <h2 className="text-xl text-[var(--text)] font-semibold">Upload de imagem</h2>
-
           <div
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -51,15 +50,14 @@ export function ImageUpload({ onUpload }: ImageUploadProps) {
             onClick={triggerFileInput}
             className={`flex flex-col items-center justify-center w-full h-40 border-2 ${
               isDragging
-                ? 'border-[var(--secondary)] bg-[var(--bg3)]'
-                : 'border-dashed border-[var(--text)]'
+                ? "border-[var(--secondary)] bg-[var(--bg3)]"
+                : "border-dashed border-[var(--text)]"
             } rounded-lg cursor-pointer transition`}
           >
             <p className="text-[var(--text)] text-sm text-center px-4">
               Arraste uma imagem aqui ou clique para selecionar
             </p>
           </div>
-
           <input
             type="file"
             accept="image/*"
